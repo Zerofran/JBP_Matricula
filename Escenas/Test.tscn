@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cekf7hcklvu0q"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+dragger_visibility = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="ScrollContainer/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -155
+split_offset = 540
+
+[node name="Panel" type="Panel" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="ScrollContainer/VBoxContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 540
+dragger_visibility = 1
+
+[node name="Panel" type="Panel" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer2"]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer2"]
+layout_mode = 2

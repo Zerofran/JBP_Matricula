@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cnacrruotnitf"]
+
+[sub_resource type="SystemFont" id="SystemFont_fcyrk"]
+font_names = PackedStringArray("Georgia")
+
+[resource]
+font = SubResource("SystemFont_fcyrk")
+font_size = 30
+font_color = Color(0, 0, 0, 1)
