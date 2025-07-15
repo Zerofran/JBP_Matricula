@@ -874,7 +874,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="f_padre_tutor" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer"]
-custom_minimum_size = Vector2(300, 70)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -893,6 +893,11 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
+[node name="HSeparator11" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
 [node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
 layout_mode = 2
 text = "FIRMA DEL PADRE O TUTOR"
@@ -900,7 +905,7 @@ label_settings = ExtResource("2_ohhdm")
 horizontal_alignment = 1
 
 [node name="FirmaControl" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer" instance=ExtResource("7_wwry8")]
-custom_minimum_size = Vector2(300, 70)
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
