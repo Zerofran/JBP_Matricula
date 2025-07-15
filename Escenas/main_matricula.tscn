@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=11 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
 [ext_resource type="LabelSettings" uid="uid://cnacrruotnitf" path="res://Fuentes/Georgia_1.tres" id="1_ssong"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="2_ohhdm"]
 [ext_resource type="Script" uid="uid://cpdguyuk3ofjc" path="res://ToolScript/SubRayadoLabel.gd" id="3_bndtn"]
 [ext_resource type="Theme" uid="uid://brq66e287yewn" path="res://Theme/LineEdit_theme.tres" id="4_2tiu3"]
+[ext_resource type="Texture2D" uid="uid://cgtylyd2hggge" path="res://IMG/IMGtestCut2.png" id="5_683mt"]
 [ext_resource type="Script" uid="uid://dxdal5l7htwxm" path="res://ToolScript/SubRayado.gd" id="5_bndtn"]
 [ext_resource type="Texture2D" uid="uid://cyk5gnitot3eq" path="res://Referencias/Hoja de matricula 2025.png" id="6_0l54t"]
+[ext_resource type="PackedScene" uid="uid://8pt17ad7qg5c" path="res://Escenas/Test/CampoFirma.tscn" id="7_wwry8"]
 
 [sub_resource type="Theme" id="Theme_0l54t"]
 RichTextLabel/fonts/normal_font = null
@@ -20,14 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 clip_contents = false
@@ -68,10 +62,18 @@ size_flags_vertical = 3
 layout_mode = 2
 
 [node name="VSeparator2" type="VSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
+visible = false
 clip_children = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
+
+[node name="Logo" type="TextureRect" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
+custom_minimum_size = Vector2(128.5, 132.5)
+layout_mode = 2
+texture = ExtResource("1_fcyrk")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="textEncavezado" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
 layout_mode = 2
@@ -107,20 +109,28 @@ script = ExtResource("3_bndtn")
 subrayado_padding = 0.0
 segunda_linea_activa = true
 
-[node name="Logo" type="TextureRect" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
-custom_minimum_size = Vector2(128.5, 132.5)
+[node name="Foto_Estudiante" type="TextureRect" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
+custom_minimum_size = Vector2(160, 160)
 layout_mode = 2
-texture = ExtResource("1_fcyrk")
-expand_mode = 1
+texture = ExtResource("5_683mt")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="VSeparator" type="VSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
+visible = false
 clip_children = 1
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 
-[node name="datos_estudiantes" type="RichTextLabel" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+[node name="HSeparator6" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="T1" type="RichTextLabel" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 clip_contents = false
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme = SubResource("Theme_0l54t")
 bbcode_enabled = true
@@ -130,7 +140,7 @@ vertical_alignment = 1
 
 [node name="HSeparator3" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 clip_children = 1
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 
 [node name="datos_del_estudiante" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
@@ -326,15 +336,25 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="datos_padres" type="RichTextLabel" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
-custom_minimum_size = Vector2(0, 60)
+[node name="HSeparator8" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="T2" type="RichTextLabel" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[color= black][b]			[u]ll. DATOS DE LOS PADRES: 
-[/u]
+text = "[color= black][b]			[u]ll. DATOS DE LOS PADRES: [/u]
 [/b][/color]"
 fit_content = true
 vertical_alignment = 1
+
+[node name="HSeparator7" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="datos_del_padre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 layout_mode = 2
@@ -441,20 +461,14 @@ theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Joaquin3799g@gmail.com"
 alignment = 1
+expand_to_text_length = true
 flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="direccion" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre"]
-layout_mode = 2
-
-[node name="curso" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre"]
-layout_mode = 2
-
-[node name="procedencia" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre"]
-layout_mode = 2
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre"]
+[node name="HSeparator4" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="datos_de_la_madre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
@@ -463,11 +477,11 @@ layout_mode = 2
 [node name="Nombre" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre"]
 layout_mode = 2
 
-[node name="nombre_padre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre"]
+[node name="nombre_madre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/nombre_padre"]
+[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/nombre_madre"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -479,7 +493,7 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/nombre_padre"]
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/nombre_madre"]
 layout_mode = 2
 text = "NOMBRE DEL MADRE. "
 label_settings = ExtResource("2_ohhdm")
@@ -490,11 +504,11 @@ layout_mode = 2
 text = "/"
 label_settings = ExtResource("2_ohhdm")
 
-[node name="cedula_padre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre"]
+[node name="cedula_madre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/cedula_padre"]
+[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/cedula_madre"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -506,7 +520,7 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/cedula_padre"]
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/cedula_madre"]
 layout_mode = 2
 text = "NUMERO DE CEDULA."
 label_settings = ExtResource("2_ohhdm")
@@ -555,40 +569,34 @@ layout_mode = 2
 text = "CORREO ELECTRÓNICO: "
 label_settings = ExtResource("2_ohhdm")
 
-[node name="codigo_estudiante" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Correo"]
+[node name="correo_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Angeles3799g@gmail.com"
 alignment = 1
+expand_to_text_length = true
 flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="direccion" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre"]
+[node name="HSeparator5" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="curso" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre"]
+[node name="d_tutor" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 layout_mode = 2
 
-[node name="procedencia" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre"]
+[node name="Nombre" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor"]
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre"]
-layout_mode = 2
-
-[node name="datos_del_tutor" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
-layout_mode = 2
-
-[node name="Nombre" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor"]
-layout_mode = 2
-
-[node name="nombre_padre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre"]
+[node name="nombre_tutor" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/nombre_padre"]
+[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/nombre_tutor"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -600,22 +608,22 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/nombre_padre"]
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/nombre_tutor"]
 layout_mode = 2
-text = "NOMBRE DEL MADRE. "
+text = "NOMBRE DEL TUTOR (PARENTEZCO)"
 label_settings = ExtResource("2_ohhdm")
 horizontal_alignment = 1
 
-[node name="fleca" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre"]
+[node name="fleca" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre"]
 layout_mode = 2
 text = "/"
 label_settings = ExtResource("2_ohhdm")
 
-[node name="cedula_padre" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre"]
+[node name="cedula_tutor" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/cedula_padre"]
+[node name="nombre_tutor" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/cedula_tutor"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -627,22 +635,22 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/cedula_padre"]
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/cedula_tutor"]
 layout_mode = 2
 text = "NUMERO DE CEDULA."
 label_settings = ExtResource("2_ohhdm")
 horizontal_alignment = 1
 
-[node name="fleca2" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre"]
+[node name="fleca2" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre"]
 layout_mode = 2
 text = "/"
 label_settings = ExtResource("2_ohhdm")
 
-[node name="celular" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre"]
+[node name="celular" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="numero_celular" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/celular"]
+[node name="numero_celular" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/celular"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -654,58 +662,58 @@ flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/celular"]
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/celular"]
 layout_mode = 2
 text = "CELULAR."
 label_settings = ExtResource("2_ohhdm")
 horizontal_alignment = 1
 
-[node name="celular2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre"]
+[node name="celular2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre"]
 layout_mode = 2
 
-[node name="fleca3" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Nombre/celular2"]
+[node name="fleca3" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/celular2"]
 layout_mode = 2
 text = "TIGO/ CLA"
 label_settings = ExtResource("2_ohhdm")
 
-[node name="Correo" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor"]
+[node name="Correo" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor"]
 layout_mode = 2
 
-[node name="T2" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Correo"]
+[node name="T2" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Correo"]
 layout_mode = 2
 text = "CORREO ELECTRÓNICO: "
 label_settings = ExtResource("2_ohhdm")
 
-[node name="codigo_estudiante" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor/Correo"]
+[node name="correo_tutor" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Angeles3799g@gmail.com"
 alignment = 1
+expand_to_text_length = true
 flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
 
-[node name="direccion" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor"]
+[node name="HSeparator10" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="curso" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor"]
-layout_mode = 2
-
-[node name="procedencia" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor"]
-layout_mode = 2
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_tutor"]
-layout_mode = 2
-
-[node name="datos_padres2" type="RichTextLabel" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
-custom_minimum_size = Vector2(0, 60)
+[node name="T3" type="RichTextLabel" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[color= black][b]		lll. DOCUMENTOS QUE ENTREGO:[/b][/color]"
 fit_content = true
 vertical_alignment = 1
+
+[node name="HSeparator9" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Documentos entregados" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
 custom_minimum_size = Vector2(0, 200)
@@ -848,6 +856,101 @@ clip_children = 1
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="FirmaTutor" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor"]
+clip_children = 1
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FirmaContainer" type="CenterContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="f_padre_tutor" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer"]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="subrayado" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_mode = 0
+mouse_filter = 2
+theme = ExtResource("4_2tiu3")
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+alignment = 1
+editable = false
+flat = true
+caret_blink = true
+script = ExtResource("5_bndtn")
+
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
+layout_mode = 2
+text = "FIRMA DEL PADRE O TUTOR"
+label_settings = ExtResource("2_ohhdm")
+horizontal_alignment = 1
+
+[node name="FirmaControl" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer" instance=ExtResource("7_wwry8")]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+
+[node name="VSeparator4" type="VSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor"]
+clip_children = 1
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="n_gestor" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/n_gestor"]
+clip_children = 1
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="cedula_madre2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/n_gestor"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+alignment = 1
+
+[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/n_gestor/cedula_madre2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme = ExtResource("4_2tiu3")
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+alignment = 1
+expand_to_text_length = true
+flat = true
+caret_blink = true
+script = ExtResource("5_bndtn")
+
+[node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/n_gestor/cedula_madre2"]
+layout_mode = 2
+text = "Nombre del gestor."
+label_settings = ExtResource("2_ohhdm")
+
+[node name="VSeparator4" type="VSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/n_gestor"]
+visible = false
+clip_children = 1
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="VSeparator2" type="VSeparator" parent="ScrollContainer/HBoxContainer"]
 clip_children = 1

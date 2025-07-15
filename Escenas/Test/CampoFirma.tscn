@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://8pt17ad7qg5c"]
+
+[ext_resource type="Script" uid="uid://dabs71832jcj6" path="res://ToolScript/FirmaScritp.gd" id="1_y4cch"]
+
+[node name="FirmaControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y4cch")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+color = Color(0.462745, 0.894118, 1, 0.309804)
+
+[node name="LineContainer" type="Line2D" parent="."]
+z_as_relative = false
+begin_cap_mode = 1
+end_cap_mode = 1
+antialiased = true
