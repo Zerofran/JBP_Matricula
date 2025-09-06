@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://bks6s1rd8y1v8"]
+
+[ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="1_i7i6a"]
+
+[node name="estudiante" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="LeftMargin" type="VSeparator" parent="."]
+clip_children = 1
+layout_mode = 2
+
+[node name="Nombre_Estudiante" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Francisco Josue Avendaño Lopez"
+label_settings = ExtResource("1_i7i6a")
+
+[node name="BorrarSeleccionado" type="CheckBox" parent="."]
+layout_mode = 2
+text = "B"
+
+[node name="Editar" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Se cargara la base de datos para mostrar los estudiantes"
+mouse_default_cursor_shape = 2
+text = "Editar"
+
+[node name="Borrar" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Se borrara la base de datos"
+mouse_default_cursor_shape = 2
+text = "Borrar"
+
+[node name="RightMargin" type="VSeparator" parent="."]
+clip_children = 1
+layout_mode = 2

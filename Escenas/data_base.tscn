@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://b68qvxtggbf1v"]
+
+[ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="1_8pnhq"]
+
+[node name="DataBase" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="LeftMargin" type="VSeparator" parent="."]
+clip_children = 1
+layout_mode = 2
+
+[node name="Nombre_BD" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Base de datos nueva"
+label_settings = ExtResource("1_8pnhq")
+
+[node name="Exportar" type="CheckBox" parent="."]
+layout_mode = 2
+tooltip_text = "Marquela para incluirla en la fusion de bases de datos"
+text = "E"
+
+[node name="Fusion" type="CheckBox" parent="."]
+layout_mode = 2
+tooltip_text = "Marquela para incluirla en la fusion de bases de datos"
+text = "F"
+
+[node name="Cargar" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Se cargara la base de datos para mostrar los estudiantes"
+mouse_default_cursor_shape = 2
+text = "Cargar"
+
+[node name="Borrar" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Se borrara la base de datos"
+mouse_default_cursor_shape = 2
+text = "Borrar"
+
+[node name="RightMargin" type="VSeparator" parent="."]
+clip_children = 1
+layout_mode = 2
