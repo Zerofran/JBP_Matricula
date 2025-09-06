@@ -1,19 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=17 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
-[ext_resource type="Script" uid="uid://bnf0ctu6dotkl" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
+[ext_resource type="Script" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
 [ext_resource type="LabelSettings" uid="uid://cnacrruotnitf" path="res://Fuentes/Georgia_1.tres" id="1_ssong"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="2_ohhdm"]
 [ext_resource type="Script" uid="uid://cpdguyuk3ofjc" path="res://ToolScript/SubRayadoLabel.gd" id="3_bndtn"]
-[ext_resource type="Theme" path="res://Theme and Style/DefaulTheme.tres" id="4_2tiu3"]
 [ext_resource type="Texture2D" uid="uid://cgtylyd2hggge" path="res://IMG/IMGtestCut2.png" id="5_683mt"]
 [ext_resource type="Script" uid="uid://dxdal5l7htwxm" path="res://ToolScript/SubRayado.gd" id="5_bndtn"]
 [ext_resource type="Texture2D" uid="uid://cyk5gnitot3eq" path="res://Referencias/Hoja de matricula 2025.png" id="6_0l54t"]
 [ext_resource type="PackedScene" uid="uid://t8abh0s3buoq" path="res://Escenas/CampoFirma.tscn" id="7_wwry8"]
-[ext_resource type="StyleBox" path="res://Theme and Style/PanelStyle.tres" id="10_cn3wv"]
-[ext_resource type="Script" uid="uid://cy4cgweu816qk" path="res://ToolScript/setting.gd" id="10_qg4xp"]
+[ext_resource type="Script" path="res://ToolScript/setting.gd" id="10_qg4xp"]
+[ext_resource type="StyleBox" uid="uid://bjyhkphds23fp" path="res://Theme/Panel_Styles.tres" id="11_3mwlj"]
 [ext_resource type="PackedScene" uid="uid://b68qvxtggbf1v" path="res://Escenas/data_base.tscn" id="12_5umy1"]
-[ext_resource type="Theme" path="res://Theme and Style/CRUD_LineEditTheme.tres" id="12_xrayp"]
+[ext_resource type="Theme" uid="uid://cgnqq2xrd3q7l" path="res://Theme/CRUD_LineEdit_theme.tres" id="12_xrayp"]
 [ext_resource type="PackedScene" uid="uid://bks6s1rd8y1v8" path="res://Escenas/estudiante.tscn" id="13_3mwlj"]
 
 [sub_resource type="Theme" id="Theme_0l54t"]
@@ -453,7 +452,6 @@ label_settings = ExtResource("2_ohhdm")
 [node name="codigo_estudiante" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Joaquin3799g@gmail.com"
 alignment = 1
@@ -941,7 +939,6 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("4_2tiu3")
 text = "Guardar Informacion"
 
 [node name="VSeparator2" type="VSeparator" parent="ScrollContainer/HBoxContainer"]
@@ -966,15 +963,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_qg4xp")
 
-[node name="Background" type="Panel" parent="Setting"]
+[node name="Panel" type="Panel" parent="Setting"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("10_cn3wv")
+theme_override_styles/panel = ExtResource("11_3mwlj")
 
 [node name="PrincipalContainer" type="HBoxContainer" parent="Setting"]
 layout_mode = 1
