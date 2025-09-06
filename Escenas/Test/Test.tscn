@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cekf7hcklvu0q"]
+[gd_scene load_steps=2 format=3 uid="uid://cekf7hcklvu0q"]
+
+[ext_resource type="PackedScene" uid="uid://8pt17ad7qg5c" path="res://Escenas/Test/CampoFirma.tscn" id="1_lu7yl"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -41,11 +43,15 @@ layout_mode = 2
 [node name="HSplitContainer2" type="HSplitContainer" parent="ScrollContainer/VBoxContainer/VSplitContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-split_offset = 540
 dragger_visibility = 1
 
 [node name="Panel" type="Panel" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FirmaControl" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer2/Panel" instance=ExtResource("1_lu7yl")]
+layout_mode = 1
 
 [node name="Panel2" type="Panel" parent="ScrollContainer/VBoxContainer/VSplitContainer/HSplitContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
