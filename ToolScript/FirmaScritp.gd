@@ -95,6 +95,7 @@ func _rehacer():
 		_lines.add_child(nueva)
 		_historial_lineas.append(puntos)
 
+
 func get_puntos_firma() -> Array:
 	var puntos: Array = []
 	for linea in _lines.get_children():

@@ -53,11 +53,8 @@ func guardar_hoja_completa():
 	# Guarda la imagen en el disco
 	var error = image.save_png("res://hoja_matricula_completa.png")
 	
-	# Libera el nodo clonado de la memoria para limpiar la escena
-	#hoja_clonada.queue_free()
 
 	# --- Vuelve a mostrar los elementos de la interfaz después de la captura ---
-	#hoja_original.get_v_scrollbar().visible = true
 	if is_instance_valid(boton_guardar):
 		boton_guardar.visible = true
 	if is_instance_valid(rectangulo_firma):

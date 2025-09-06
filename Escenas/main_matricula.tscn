@@ -1,13 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=16 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
-[ext_resource type="Script" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
+[ext_resource type="Script" uid="uid://bnf0ctu6dotkl" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
 [ext_resource type="LabelSettings" uid="uid://cnacrruotnitf" path="res://Fuentes/Georgia_1.tres" id="1_ssong"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="2_ohhdm"]
 [ext_resource type="Script" uid="uid://cpdguyuk3ofjc" path="res://ToolScript/SubRayadoLabel.gd" id="3_bndtn"]
 [ext_resource type="Texture2D" uid="uid://cgtylyd2hggge" path="res://IMG/IMGtestCut2.png" id="5_683mt"]
 [ext_resource type="Script" uid="uid://dxdal5l7htwxm" path="res://ToolScript/SubRayado.gd" id="5_bndtn"]
-[ext_resource type="Texture2D" uid="uid://cyk5gnitot3eq" path="res://Referencias/Hoja de matricula 2025.png" id="6_0l54t"]
 [ext_resource type="PackedScene" uid="uid://t8abh0s3buoq" path="res://Escenas/CampoFirma.tscn" id="7_wwry8"]
 [ext_resource type="Script" path="res://ToolScript/setting.gd" id="10_qg4xp"]
 [ext_resource type="StyleBox" uid="uid://bjyhkphds23fp" path="res://Theme/Panel_Styles.tres" id="11_3mwlj"]
@@ -946,14 +945,6 @@ clip_children = 1
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.686275)
-layout_mode = 0
-offset_right = 1021.0
-offset_bottom = 1321.0
-texture = ExtResource("6_0l54t")
-
 [node name="Setting" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -1270,6 +1261,7 @@ layout_mode = 2
 size = Vector2i(1021, 1321)
 
 [node name="BG" type="ColorRect" parent="SubViewport"]
+z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
