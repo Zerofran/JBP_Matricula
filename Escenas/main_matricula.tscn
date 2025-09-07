@@ -946,7 +946,6 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Setting" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1216,7 +1215,7 @@ mouse_default_cursor_shape = 2
 text = "Capturar Hoja de matriculan "
 autowrap_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Setting/PrincipalContainer/CapturContainer"]
+[node name="captura_matricula" type="TextureRect" parent="Setting/PrincipalContainer/CapturContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = SubResource("ViewportTexture_rtsgn")
@@ -1296,7 +1295,7 @@ texture = ExtResource("1_fcyrk")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="imgFile_Load" type="FileDialog" parent="."]
 title = "Open a File or Directory"
 initial_position = 2
 ok_button_text = "Select This Folder"
@@ -1306,8 +1305,18 @@ access = 2
 filters = PackedStringArray("*png")
 use_native_dialog = true
 
+[node name="imgFile_Save" type="FileDialog" parent="."]
+auto_translate_mode = 1
+initial_position = 2
+cancel_button_text = "Cancelar"
+access = 2
+filters = PackedStringArray("*.png")
+use_native_dialog = true
+
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Foto" to="Setting" method="_on_foto_pressed"]
-[connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/CaptureButton" to="." method="_on_capture_button_pressed"]
-[connection signal="file_selected" from="FileDialog" to="Setting" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/CaptureButton" to="Setting" method="_on_capture_button_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/ButonCaptura/Guardar" to="Setting" method="_on_guardar_pressed"]
+[connection signal="file_selected" from="imgFile_Load" to="Setting" method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="imgFile_Save" to="Setting" method="_on_img_file_save_file_selected"]
 
 [editable path="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl"]
