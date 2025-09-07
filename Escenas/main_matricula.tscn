@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cgtylyd2hggge" path="res://IMG/IMGtestCut2.png" id="5_683mt"]
 [ext_resource type="Script" uid="uid://dxdal5l7htwxm" path="res://ToolScript/SubRayado.gd" id="5_bndtn"]
 [ext_resource type="PackedScene" uid="uid://t8abh0s3buoq" path="res://Escenas/CampoFirma.tscn" id="7_wwry8"]
-[ext_resource type="Script" path="res://ToolScript/setting.gd" id="10_qg4xp"]
+[ext_resource type="Script" uid="uid://cy4cgweu816qk" path="res://ToolScript/setting.gd" id="10_qg4xp"]
 [ext_resource type="StyleBox" uid="uid://bjyhkphds23fp" path="res://Theme/Panel_Styles.tres" id="11_3mwlj"]
 [ext_resource type="PackedScene" uid="uid://b68qvxtggbf1v" path="res://Escenas/data_base.tscn" id="12_5umy1"]
 [ext_resource type="Theme" uid="uid://cgnqq2xrd3q7l" path="res://Theme/CRUD_LineEdit_theme.tres" id="12_xrayp"]
@@ -946,6 +946,7 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Setting" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1270,17 +1271,45 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Control" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="SubViewport/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -429.752
+offset_top = -140.869
+offset_right = 429.752
+offset_bottom = 140.869
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fcyrk")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 initial_position = 2
 visible = true
 ok_button_text = "Open"
+cancel_button_text = "Cancelar"
 file_mode = 0
 access = 2
 root_subfolder = "C:\\Users\\fran7\\OneDrive\\Escritorio"
 filters = PackedStringArray("*png")
 use_native_dialog = true
 
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Foto" to="Setting" method="_on_foto_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/CaptureButton" to="." method="_on_capture_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="Setting" method="_on_file_dialog_file_selected"]
 
 [editable path="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl"]
