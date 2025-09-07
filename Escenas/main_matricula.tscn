@@ -1297,14 +1297,12 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="FileDialog" type="FileDialog" parent="."]
-title = "Open a File"
+title = "Open a File or Directory"
 initial_position = 2
-visible = true
-ok_button_text = "Open"
+ok_button_text = "Select This Folder"
 cancel_button_text = "Cancelar"
-file_mode = 0
+file_mode = 3
 access = 2
-root_subfolder = "C:\\Users\\fran7\\OneDrive\\Escritorio"
 filters = PackedStringArray("*png")
 use_native_dialog = true
 
