@@ -11,6 +11,9 @@ func _process(delta: float) -> void:
 		guardar_hoja_completa()
 	
 
+# Archivo: Main_Matricula.gd
+# (Reemplaza la función existente con esta versión)
+
 func guardar_hoja_completa():
 	# Primero, limpia el SubViewport de cualquier contenido anterior.
 	# Esto evita la duplicación de nodos y fugas de memoria.
@@ -37,8 +40,28 @@ func guardar_hoja_completa():
 	if is_instance_valid(rectangulo_firma):
 		rectangulo_firma.visible = false
 	
-	# Duplica el nodo original para evitar alterar la escena visible
+	# --- NUEVO CÓDIGO AÑADIDO ---
+	# 1. Obtiene los datos de la firma del componente original antes de duplicarlo.
+	var nodo_firma_original = $ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl
+	var puntos_firma_original = nodo_firma_original.get_puntos_firma()
+	
+	# 2. Duplica el nodo original.
 	var hoja_clonada = hoja_original.duplicate()
+	
+	# 3. Encuentra el nodo de la firma en la copia.
+	var nodo_firma_clonada = hoja_clonada.get_node("HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl")
+	
+	# 4. Dibuja las líneas de la firma en el nodo clonado usando los datos originales.
+	if is_instance_valid(nodo_firma_clonada):
+		var line_container = nodo_firma_clonada.get_node("LineContainer")
+		if is_instance_valid(line_container):
+			for puntos_linea in puntos_firma_original:
+				var nueva_linea = Line2D.new()
+				nueva_linea.points = puntos_linea
+				nueva_linea.default_color = Color.BLACK
+				nueva_linea.width = 2
+				line_container.add_child(nueva_linea)
+	# --- FIN DE CÓDIGO AÑADIDO ---
 	
 	# Añade el clon al SubViewport
 	sub_viewport.add_child(hoja_clonada)
@@ -53,6 +76,8 @@ func guardar_hoja_completa():
 	# Guarda la imagen en el disco
 	var error = image.save_png("res://hoja_matricula_completa.png")
 	
+	# Libera el nodo clonado de la memoria para limpiar la escena
+	#hoja_clonada.queue_free()
 
 	# --- Vuelve a mostrar los elementos de la interfaz después de la captura ---
 	if is_instance_valid(boton_guardar):
