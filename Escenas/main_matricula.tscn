@@ -1,17 +1,24 @@
-[gd_scene load_steps=11 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=16 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
+[ext_resource type="Script" uid="uid://bnf0ctu6dotkl" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
 [ext_resource type="LabelSettings" uid="uid://cnacrruotnitf" path="res://Fuentes/Georgia_1.tres" id="1_ssong"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="2_ohhdm"]
 [ext_resource type="Script" uid="uid://cpdguyuk3ofjc" path="res://ToolScript/SubRayadoLabel.gd" id="3_bndtn"]
-[ext_resource type="Theme" uid="uid://brq66e287yewn" path="res://Theme/LineEdit_theme.tres" id="4_2tiu3"]
 [ext_resource type="Texture2D" uid="uid://cgtylyd2hggge" path="res://IMG/IMGtestCut2.png" id="5_683mt"]
 [ext_resource type="Script" uid="uid://dxdal5l7htwxm" path="res://ToolScript/SubRayado.gd" id="5_bndtn"]
-[ext_resource type="Texture2D" uid="uid://cyk5gnitot3eq" path="res://Referencias/Hoja de matricula 2025.png" id="6_0l54t"]
-[ext_resource type="PackedScene" uid="uid://8pt17ad7qg5c" path="res://Escenas/Test/CampoFirma.tscn" id="7_wwry8"]
+[ext_resource type="PackedScene" uid="uid://t8abh0s3buoq" path="res://Escenas/CampoFirma.tscn" id="7_wwry8"]
+[ext_resource type="Script" path="res://ToolScript/setting.gd" id="10_qg4xp"]
+[ext_resource type="StyleBox" uid="uid://bjyhkphds23fp" path="res://Theme/Panel_Styles.tres" id="11_3mwlj"]
+[ext_resource type="PackedScene" uid="uid://b68qvxtggbf1v" path="res://Escenas/data_base.tscn" id="12_5umy1"]
+[ext_resource type="Theme" uid="uid://cgnqq2xrd3q7l" path="res://Theme/CRUD_LineEdit_theme.tres" id="12_xrayp"]
+[ext_resource type="PackedScene" uid="uid://bks6s1rd8y1v8" path="res://Escenas/estudiante.tscn" id="13_3mwlj"]
 
 [sub_resource type="Theme" id="Theme_0l54t"]
 RichTextLabel/fonts/normal_font = null
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rtsgn"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Main_Matricula" type="Control"]
 layout_mode = 3
@@ -22,6 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_rtsgn")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 clip_contents = false
@@ -157,7 +165,6 @@ label_settings = ExtResource("2_ohhdm")
 [node name="NombreApellido" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_estudiante/Nombre"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Coloque el nombre aqui"
 flat = true
@@ -176,7 +183,6 @@ label_settings = ExtResource("2_ohhdm")
 [node name="lugar_nacimiento" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_estudiante/informacion_natal"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Escriba el Lugar y fecha de nacimiento aqui"
 flat = true
@@ -194,7 +200,6 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "16"
 alignment = 1
@@ -212,7 +217,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "M"
 alignment = 1
@@ -232,7 +236,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Escriba la direccion Actual aqui, de no alcansar"
 max_length = 108
@@ -247,7 +250,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "continue aqui"
 flat = true
@@ -263,7 +265,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Aprobado"
 flat = true
@@ -279,7 +280,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 flat = true
 caret_blink = true
@@ -294,7 +294,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "¿Repitente?"
 flat = true
@@ -313,7 +312,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Procedencia"
 flat = true
@@ -329,7 +327,6 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "00002444848992F"
 flat = true
@@ -370,7 +367,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Joaquin Hernesto Alvares Lopez"
 alignment = 1
@@ -397,7 +393,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "200-15487-8888-407B"
 alignment = 1
@@ -424,7 +419,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "+505 1489-6502"
 alignment = 1
@@ -457,7 +451,6 @@ label_settings = ExtResource("2_ohhdm")
 [node name="codigo_estudiante" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Joaquin3799g@gmail.com"
 alignment = 1
@@ -485,7 +478,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Socorro de los angeles"
 alignment = 1
@@ -512,7 +504,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "210-15447-8877-407A"
 alignment = 1
@@ -539,7 +530,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "+505 1209-6507"
 alignment = 1
@@ -572,7 +562,6 @@ label_settings = ExtResource("2_ohhdm")
 [node name="correo_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Angeles3799g@gmail.com"
 alignment = 1
@@ -600,7 +589,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Socorro de los angeles"
 alignment = 1
@@ -627,7 +615,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "210-15447-8877-407A"
 alignment = 1
@@ -654,7 +641,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "+505 1209-6507"
 alignment = 1
@@ -687,7 +673,6 @@ label_settings = ExtResource("2_ohhdm")
 [node name="correo_tutor" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 placeholder_text = "Angeles3799g@gmail.com"
 alignment = 1
@@ -743,7 +728,6 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 flat = true
@@ -762,7 +746,6 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 flat = true
@@ -781,7 +764,6 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 flat = true
@@ -801,7 +783,6 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 flat = true
@@ -820,7 +801,6 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 flat = true
@@ -839,7 +819,6 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 flat = true
@@ -885,7 +864,6 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_mode = 0
 mouse_filter = 2
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 editable = false
@@ -937,7 +915,6 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme = ExtResource("4_2tiu3")
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 alignment = 1
 expand_to_text_length = true
@@ -957,15 +934,353 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Guardar" type="Button" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Guardar Informacion"
+
 [node name="VSeparator2" type="VSeparator" parent="ScrollContainer/HBoxContainer"]
 clip_children = 1
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0.686275)
-layout_mode = 0
-offset_right = 1021.0
-offset_bottom = 1321.0
-texture = ExtResource("6_0l54t")
+[node name="Setting" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_qg4xp")
+
+[node name="Panel" type="Panel" parent="Setting"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("11_3mwlj")
+
+[node name="PrincipalContainer" type="HBoxContainer" parent="Setting"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftMargin" type="VSeparator" parent="Setting/PrincipalContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="DataBaseContainer" type="VBoxContainer" parent="Setting/PrincipalContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Titulo" type="Label" parent="Setting/PrincipalContainer/DataBaseContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "CRUD Base de datos"
+label_settings = ExtResource("1_ssong")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Create_BD" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+layout_mode = 2
+
+[node name="Name_DB" type="LineEdit" parent="Setting/PrincipalContainer/DataBaseContainer/Create_BD"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Escriba el nombre de la base de datos"
+theme = ExtResource("12_xrayp")
+placeholder_text = "Nombre de la base de datos a crear"
+
+[node name="Button" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Create_BD"]
+layout_mode = 2
+tooltip_text = "Se creara una nueva Base de datos"
+mouse_default_cursor_shape = 2
+text = "Crear"
+
+[node name="TopMargin2" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="BD_Disponibles" type="ScrollContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="BD_Container" type="VBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="DataBase" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase2" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase7" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase8" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase9" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase3" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase4" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase5" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="DataBase6" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+layout_mode = 2
+
+[node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Export" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ExportarCSV" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
+layout_mode = 2
+text = "Exportar CSV"
+
+[node name="ExportarTodo" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
+layout_mode = 2
+text = "Exportar Todo"
+
+[node name="ImportarCSV" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
+layout_mode = 2
+text = "Importar CSV"
+
+[node name="FusionarBases" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
+layout_mode = 2
+text = "Fusionar Bases"
+
+[node name="CenterMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Search" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+layout_mode = 2
+
+[node name="barra_busqueda" type="LineEdit" parent="Setting/PrincipalContainer/DataBaseContainer/Search"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Escriba el nombre de la base de datos"
+theme = ExtResource("12_xrayp")
+placeholder_text = "Nombre del Estudiante"
+
+[node name="Buscar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Search"]
+layout_mode = 2
+tooltip_text = "Se creara una nueva Base de datos"
+mouse_default_cursor_shape = 2
+text = "Buscar"
+
+[node name="CenterMargin2" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="BD_Disponibles2" type="ScrollContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="BD_Container" type="VBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="estudiante" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante7" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante8" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante9" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante10" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante2" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante3" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante4" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante5" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="estudiante6" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+layout_mode = 2
+
+[node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="CenterMargin3" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Option" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Borrar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+layout_mode = 2
+tooltip_text = "Borra los estudiantes Seleccionados"
+text = "Borrar"
+
+[node name="Foto" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+layout_mode = 2
+tooltip_text = "Agrega la foto de un estudiante"
+text = "Agregar Foto"
+
+[node name="Añadir" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+layout_mode = 2
+tooltip_text = "Añade un nuevo estudiante a la base de datos"
+text = "Añadir nuevo"
+
+[node name="Organizar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+layout_mode = 2
+tooltip_text = "Organiza los estudiantes alfabeticamente usando su primer nombre"
+text = "Organizar"
+
+[node name="Guardar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+layout_mode = 2
+tooltip_text = "Guarda la informacion en la base de datos ca"
+text = "Guardar"
+
+[node name="ButtonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="CenterMargin" type="VSeparator" parent="Setting/PrincipalContainer"]
+clip_children = 1
+layout_mode = 2
+
+[node name="CapturContainer" type="VBoxContainer" parent="Setting/PrincipalContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/CapturContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="CaptureButton" type="Button" parent="Setting/PrincipalContainer/CapturContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+text = "Capturar Hoja de matriculan "
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Setting/PrincipalContainer/CapturContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("ViewportTexture_rtsgn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButonCaptura" type="HBoxContainer" parent="Setting/PrincipalContainer/CapturContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Guardar" type="Button" parent="Setting/PrincipalContainer/CapturContainer/ButonCaptura"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Guardar"
+autowrap_mode = 2
+
+[node name="Guardar2" type="Button" parent="Setting/PrincipalContainer/CapturContainer/ButonCaptura"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Guardar en Documentos"
+autowrap_mode = 2
+
+[node name="Export" type="Button" parent="Setting/PrincipalContainer/CapturContainer/ButonCaptura"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Exportar PDF"
+autowrap_mode = 2
+
+[node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/CapturContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="RightMargin" type="VSeparator" parent="Setting/PrincipalContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1021, 1321)
+
+[node name="BG" type="ColorRect" parent="SubViewport"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+visible = true
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+root_subfolder = "C:\\Users\\fran7\\OneDrive\\Escritorio"
+filters = PackedStringArray("*png")
+use_native_dialog = true
+
+[connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/CaptureButton" to="." method="_on_capture_button_pressed"]
+
+[editable path="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl"]

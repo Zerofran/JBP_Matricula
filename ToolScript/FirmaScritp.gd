@@ -94,3 +94,11 @@ func _rehacer():
 			nueva.add_point(p)
 		_lines.add_child(nueva)
 		_historial_lineas.append(puntos)
+
+
+func get_puntos_firma() -> Array:
+	var puntos: Array = []
+	for linea in _lines.get_children():
+		if linea is Line2D:
+			puntos.append(linea.get_points())
+	return puntos
