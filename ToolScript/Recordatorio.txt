@@ -1,0 +1,3 @@
+"Codigo", "Estudiante", "LugarNacimiento", "Edad",
+"Sexo", "Direccion", "GradoAprobado", "GradoPorCursar", "Repitente",
+"CentroProcedencia", ""

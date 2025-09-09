@@ -993,21 +993,20 @@ label_settings = ExtResource("1_ssong")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Create_BD" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+[node name="BD_Gestor" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
 layout_mode = 2
 
-[node name="Name_DB" type="LineEdit" parent="Setting/PrincipalContainer/DataBaseContainer/Create_BD"]
+[node name="crear_BD" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor"]
 layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Escriba el nombre de la base de datos"
-theme = ExtResource("12_xrayp")
-placeholder_text = "Nombre de la base de datos a crear"
-
-[node name="Button" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Create_BD"]
-layout_mode = 2
-tooltip_text = "Se creara una nueva Base de datos"
+tooltip_text = "Se creara una nueva Base de datos y se carga en el gestor"
 mouse_default_cursor_shape = 2
-text = "Crear"
+text = "Crear CSV"
+
+[node name="cargar_BD" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor"]
+layout_mode = 2
+tooltip_text = "Se cargan las bases de datos seleccionadas en el inspector"
+mouse_default_cursor_shape = 2
+text = "Cargar BD"
 
 [node name="TopMargin2" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
 clip_children = 1
@@ -1295,17 +1294,11 @@ texture = ExtResource("1_fcyrk")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="imgFile_Load" type="FileDialog" parent="."]
-title = "Open a File or Directory"
-initial_position = 2
-ok_button_text = "Select This Folder"
-cancel_button_text = "Cancelar"
-file_mode = 3
-access = 2
-filters = PackedStringArray("*png")
-use_native_dialog = true
+[node name="IMG_Save-Load" type="Window" parent="."]
+initial_position = 1
+visible = false
 
-[node name="imgFile_Save" type="FileDialog" parent="."]
+[node name="imgFile_Save" type="FileDialog" parent="IMG_Save-Load"]
 auto_translate_mode = 1
 initial_position = 2
 cancel_button_text = "Cancelar"
@@ -1313,10 +1306,46 @@ access = 2
 filters = PackedStringArray("*.png")
 use_native_dialog = true
 
+[node name="imgFile_Load" type="FileDialog" parent="IMG_Save-Load"]
+title = "Open a File or Directory"
+initial_position = 2
+ok_button_text = "Open"
+cancel_button_text = "Cancelar"
+file_mode = 3
+access = 2
+filters = PackedStringArray("*png")
+use_native_dialog = true
+
+[node name="CSVDir_Save-Load" type="Window" parent="."]
+auto_translate_mode = 1
+initial_position = 1
+visible = false
+
+[node name="CSVFile_Save" type="FileDialog" parent="CSVDir_Save-Load"]
+auto_translate_mode = 1
+initial_position = 2
+cancel_button_text = "Cancelar"
+access = 2
+filters = PackedStringArray("*.csv")
+use_native_dialog = true
+
+[node name="CSVFile_Load" type="FileDialog" parent="CSVDir_Save-Load"]
+auto_translate_mode = 1
+title = "Open a File or Directory"
+initial_position = 2
+ok_button_text = "Open"
+cancel_button_text = "Cancelar"
+file_mode = 3
+access = 2
+filters = PackedStringArray("*png")
+use_native_dialog = true
+
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor/crear_BD" to="Setting" method="_on_crear_bd_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Foto" to="Setting" method="_on_foto_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/CaptureButton" to="Setting" method="_on_capture_button_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/ButonCaptura/Guardar" to="Setting" method="_on_guardar_pressed"]
-[connection signal="file_selected" from="imgFile_Load" to="Setting" method="_on_file_dialog_file_selected"]
-[connection signal="file_selected" from="imgFile_Save" to="Setting" method="_on_img_file_save_file_selected"]
+[connection signal="file_selected" from="IMG_Save-Load/imgFile_Save" to="Setting" method="_on_img_file_save_file_selected"]
+[connection signal="file_selected" from="IMG_Save-Load/imgFile_Load" to="Setting" method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="CSVDir_Save-Load/CSVFile_Save" to="Setting" method="_on_csv_file_save_file_selected"]
 
 [editable path="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl"]

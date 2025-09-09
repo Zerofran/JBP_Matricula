@@ -1,91 +1,161 @@
+
+# CSV Manager - Librería para operaciones CRUD en archivos CSV
 extends Node
 
-var doc = "res://"
-var titulos = ["nombre", "edad"]
-const  encavezado : Array = ["Id", "Nombre", "Tipo", "masa", "posicion", "altura", "asce recta i", "asce recta f",
-"Declin i", "Declin f", "Vel angular", "Vel Tangencial", "Fecha", "Fecha Juliana", "Tiempo UTC"]
+var file_path: String = ""
+var headers: Array = []
+var data: Array = []
+const ENCABEZADOS_MATRICULA: Array = [
+	"Codigo", "Estudiante", "LugarNacimiento", "Edad", "Sexo", 
+	"Direccion", "GradoAprobado", "GradoPorCursar", "Repitente","CentroProcedencia", 
+	"NombrePadre","CedulaPadre", "CelularPadre", "CorreoPadre", 
+	"NombreMadre","CedulaMadre","CelularMadre", "CorreoMadre",
+	"NombreTutor","CedulaTutor","CelularTutor", "CorreoTutor",
+	"PartidaNacimiento","NotaAnterior","CopiaDiploma", "CopiaCedulaFamiliar-Tutor",
+	"FechaMatricula", "Firma", "NombreGestor"
+	]
 
-# esta funcion setea los parametros con los que se van a trabajar asi que se debe ejecutar primero
-func  setting(Url:String, Titulos: Array, Name: String = "defaul.csv"):
-	doc = Url + Name
-	titulos = Titulos
-	print(doc, " ruta al documento")
-
-#esta es la funcion de escribir
-func _escribir(Datos: Array = []):
-	var documento = _leer()
-	var file = FileAccess.open(doc, FileAccess.WRITE)
-	if documento.size() == 0:
-		file.store_csv_line(titulos, ";")
-		print(documento.size(), " tamaño del doc")
-	else:
-		for i in documento.size():
-			var datos : Array = documento[i]
-			file.store_csv_line(datos, ";")
-
-	if Datos != []:
-		file.store_csv_line(Datos, ";")
-		print(Datos, "prueba 2")
-	file.close()
-
-#esta resescribe y esta compuesta de dos partes, una que borra un elemento en concreto y otra
-#que reescribe un elemento en concreto solo que la termino, esta funcion no se debe de llamar, es auxiliar
-func _Re_escribir(valor:Array, modo: bool = true ):
-	if modo == true:
-		var file = FileAccess.open(doc, FileAccess.WRITE)
-		if valor.size() == 0:
-			print_rich("[color=red][b]No hay datos que leer[/b][/color]")
-		else:
-			for i in valor.size():
-				var datos = valor[i]
-				#datos.erase("")
-				file.store_csv_line(datos, ";")
-		file.close()
-	else:
-		#aqui se pondra la logica de el digito a sobre escribir
-		pass
-
-#funcion que lee el Csv, devuelve un array bidimencional
-func _leer():
-	var file = FileAccess.open(doc, FileAccess.READ)
-	if (not FileAccess.file_exists(doc)):
-		print("no hay datos que cargar")
-		return []
-	var contenido = file.get_as_text()
-	contenido = contenido.split("\n")
-	contenido = Array(contenido)
-	contenido.erase("")
-
-	var datos:Array = []
-	for i in contenido:
-		i = i.split(";")
-		i = Array(i)
-		#i.erase("")  # esto borraba el ultimo elemento basio del array
-		datos.append(i)
-	file.close()
-	return datos
-
-#esta es la que borra y usa a re escribir para auxiliarse
-func _borrar(valor) -> void:
-	var datos:Array = _leer()
-	var borrar: Array = _leer()
-	datos.erase(borrar[valor])
-	_Re_escribir(datos)
-
-func filtroPorTipo(lista: Array, debri:bool = true) -> Array:
-	var Tipo : String
-	if debri:
-		Tipo = "debris"
-	else:
-		Tipo = "satelite"
-	var ResultadoFiltrado : Array
-	for i in lista.size():
-		if i != 0:
-			for a in lista[i].size():
-				if lista[i][a] == Tipo:
-					ResultadoFiltrado.append_array(lista[i])
-					
-	return ResultadoFiltrado
-
-func  FormatoDeVariables(Lista: Array):
+func _ready() -> void:
 	pass
+
+#region CRUD - Funciones Principales
+#-------------------------------------------------------------------------------------------------
+# Carga el archivo CSV desde una ruta y lo lee.
+func load() -> void:
+	if not FileAccess.file_exists(file_path):
+		print("No se encontró el archivo en: ", file_path)
+		data = []
+		headers = []
+		return
+
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var content = file.get_as_text().split("\n")
+	file.close()
+	
+	data = []
+	if not content.is_empty():
+		# La primera línea contiene los encabezados.
+		headers = content.pop_front().split(";")
+	
+	for row_string in content:
+		if not row_string.is_empty():
+			var row_array = row_string.split(";")
+			data.append(row_array)
+
+# Añade un nuevo registro (fila) a la base de datos en memoria.
+func add_record(new_record: Array) -> void:
+	data.append(new_record)
+	_save_to_file()
+
+# Actualiza un registro existente por su índice (número de fila).
+func update_record(index: int, updated_record: Array) -> void:
+	if index >= 0 and index < data.size():
+		data[index] = updated_record
+		_save_to_file()
+
+# Elimina un registro por su índice(número de fila).
+func delete_record(index: int) -> void:
+	if index >= 0 and index < data.size():
+		data.remove_at(index)
+		_save_to_file()
+
+# Busca y devuelve un array de registros que coincidan con un valor.
+func filter_by_value(value_to_find: String) -> Array:
+	var filtered_results: Array = []
+	for record in data:
+		if record.has(value_to_find):
+			filtered_results.append(record)
+	return filtered_results
+
+#-------------------------------------------------------------------------------------------------
+# Convierte una textura a una cadena Base64.
+func texture_to_base64(texture: Texture2D) -> String:
+	if not texture:
+		return ""
+	var image = texture.get_image()
+	var png_bytes = image.save_png_to_buffer()
+	return Marshalls.raw_to_base64(png_bytes)
+
+# Convierte una cadena Base64 a una textura.
+func base64_to_texture(base64_string: String) -> Texture2D:
+	if base64_string.is_empty():
+		return null
+	var png_bytes = Marshalls.base64_to_raw(base64_string)
+	var image = Image.new()
+	var error = image.load_png_from_buffer(png_bytes)
+	if error != OK:
+		print("Error al decodificar la imagen: ", error)
+		return null
+	return ImageTexture.create_from_image(image)
+
+#endregion
+
+
+#region Ordenación
+#-------------------------------------------------------------------------------------------------
+
+# Ordena los datos de mayor a menor o de menor a mayor, numérica o alfabéticamente.
+func sort_data(column_index: int, is_ascending: bool = true, is_numeric: bool = false) -> void:
+	if data.is_empty() or column_index < 0 or column_index >= headers.size():
+		print("Error: Los datos están vacíos o el índice de columna no es válido.")
+		return
+	
+	# La corrección: Usa una función anónima para encapsular la lógica de ordenación.
+	data.sort_custom(func(a, b):
+		var value_a = a[column_index]
+		var value_b = b[column_index]
+		
+		if is_numeric:
+			value_a = float(value_a)
+			value_b = float(value_b)
+		
+		if is_ascending:
+			return value_a < value_b
+		else:
+			return value_a > value_b
+	)
+
+#-------------------------------------------------------------------------------------------------
+#endregion
+
+
+#region Funciones Auxiliares y Herramientas
+#-------------------------------------------------------------------------------------------------
+
+# Configura la ruta y los encabezados del archivo.
+# Se llama una sola vez antes de usar las funciones principales.
+func setup(path: String, new_headers: Array) -> void:
+	file_path = path
+	headers = new_headers
+
+# Guarda los datos en el archivo CSV (función auxiliar).
+# No debe ser llamada directamente desde otros scripts.
+func _save_to_file() -> void:
+	if file_path.is_empty():
+		print("Error: No se puede guardar, la ruta del archivo no está definida.")
+		return
+	
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if not file:
+		print("Error al escribir el archivo: %s" % FileAccess.get_open_error())
+		return
+
+	# Corrección: Se especifica el punto y coma (";") como delimitador.
+	file.store_csv_line(headers, ";")
+	for row in data:
+		file.store_csv_line(row, ";")
+	file.close()
+
+# Convierte un string con formato de Vector3 a un objeto Vector3.
+# Útil si almacenas coordenadas en el CSV.
+func string_to_vector3(vector_string: String) -> Vector3:
+	var vector_values: Array = vector_string.split(";")
+	var result_vector: Vector3 = Vector3()
+	
+	if vector_values.size() >= 3:
+		result_vector.x = float(vector_values[0])
+		result_vector.y = float(vector_values[1])
+		result_vector.z = float(vector_values[2])
+	
+	return result_vector
+#endregion

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b68qvxtggbf1v"]
+[gd_scene load_steps=3 format=3 uid="uid://b68qvxtggbf1v"]
 
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="1_8pnhq"]
+[ext_resource type="Script" uid="uid://bd1sxfr44ufeb" path="res://ToolScript/data_base.gd" id="1_ci2er"]
 
 [node name="DataBase" type="HBoxContainer"]
 anchors_preset = 10
@@ -10,6 +11,7 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
+script = ExtResource("1_ci2er")
 metadata/_edit_group_ = true
 
 [node name="LeftMargin" type="VSeparator" parent="."]
@@ -47,3 +49,11 @@ text = "Borrar"
 [node name="RightMargin" type="VSeparator" parent="."]
 clip_children = 1
 layout_mode = 2
+
+[node name="Alert" type="AcceptDialog" parent="."]
+initial_position = 2
+ok_button_text = " Si "
+dialog_text = "Seguro que quieres borrar la base de datos"
+
+[connection signal="pressed" from="Borrar" to="." method="_on_borrar_pressed"]
+[connection signal="confirmed" from="Alert" to="." method="_on_alert_confirmed"]

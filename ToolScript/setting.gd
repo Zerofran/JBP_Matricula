@@ -6,7 +6,6 @@ var imagen: Image
 
 func _ready() -> void:
 	visible = true
-	
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("tap"):
 		self.visible = !self.visible
@@ -17,10 +16,10 @@ func _on_capture_button_pressed() -> void:
 
 func _on_foto_pressed() -> void:
 	# Muestra el FileDialog.
-	$"../imgFile_Load".visible = true
+	$"../IMG_Save-Load/imgFile_Load".visible = true
 
 func _on_guardar_pressed() -> void:
-	$"../imgFile_Save".visible = true
+	$"../IMG_Save-Load/imgFile_Save".visible = true
 
 func _on_file_dialog_file_selected(path: String) -> void:
 	# Crea un nuevo objeto Image para cargar los datos del archivo.
@@ -44,15 +43,11 @@ func _on_file_dialog_file_selected(path: String) -> void:
 func _on_img_file_save_file_selected(path: String) -> void:
 	# Guarda la imagen en el disco
 	var error = imagen.save_png(path)
-	
-	# Libera el nodo clonado de la memoria para limpiar la escena
-	#hoja_clonada.queue_free()
 
 	if error == OK:
 		print("¡Hoja de matrícula guardada correctamente!")
 	else:
 		print("Error al guardar la imagen. Código de error: ", error)
-
 
 func guardar_hoja_completa() -> Image:
 	var sub_viewport = $"../SubViewport"
@@ -116,3 +111,11 @@ func guardar_hoja_completa() -> Image:
 		rectangulo_firma.visible = true
 	
 	return viewport_texture.get_image()
+
+#<--------Aqui se maneja la creacion de Bases de Datos-------->
+func _on_crear_bd_pressed() -> void:
+	$"../CSVDir_Save-Load/CSVFile_Save".visible = true
+
+func _on_csv_file_save_file_selected(path: String) -> void:
+	CsvCtrl.setup(path, CsvCtrl.ENCABEZADOS_MATRICULA)
+	CsvCtrl._save_to_file()

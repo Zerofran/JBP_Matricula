@@ -95,10 +95,42 @@ func _rehacer():
 		_lines.add_child(nueva)
 		_historial_lineas.append(puntos)
 
-
+#-------------------------------------------------------------------------------------------------
+#Esta zona es usada para guardar o cargar los puntos del csv ademas de usarse por la funsion de captura
 func get_puntos_firma() -> Array:
 	var puntos: Array = []
 	for linea in _lines.get_children():
 		if linea is Line2D:
 			puntos.append(linea.get_points())
 	return puntos
+
+func dibujar_firma_desde_string(firma_json: String) -> void:
+	# 1. Limpia cualquier firma anterior
+	for child in _lines.get_children():
+		child.queue_free()
+	
+	# 2. Analiza el JSON
+	var parser = JSON.new()
+	var error = parser.parse(firma_json)
+	if error != OK:
+		print("Error al analizar el JSON de la firma: ", parser.get_error_message())
+		return
+
+	var puntos_firma: Array = parser.get_data()
+	if not puntos_firma is Array:
+		print("El JSON de la firma no es un Array de puntos.")
+		return
+	
+	# 3. Dibuja las líneas
+	for puntos in puntos_firma:
+		if not puntos is PackedVector2Array:
+			print("Error: Se esperaba un PackedVector2Array.")
+			continue
+		
+		var nueva_linea = Line2D.new()
+		nueva_linea.default_color = Color.BLACK
+		nueva_linea.width = 2
+		nueva_linea.set_points(puntos)
+		_lines.add_child(nueva_linea)
+
+#-------------------------------------------------------------------------------------------------

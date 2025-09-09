@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bks6s1rd8y1v8"]
+[gd_scene load_steps=3 format=3 uid="uid://bks6s1rd8y1v8"]
 
+[ext_resource type="Script" uid="uid://bedcfysyyare" path="res://ToolScript/estudiante.gd" id="1_dxlvv"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="1_i7i6a"]
 
 [node name="estudiante" type="HBoxContainer"]
@@ -8,6 +9,7 @@ anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
 alignment = 1
+script = ExtResource("1_dxlvv")
 metadata/_edit_group_ = true
 
 [node name="LeftMargin" type="VSeparator" parent="."]
@@ -39,3 +41,8 @@ text = "Borrar"
 [node name="RightMargin" type="VSeparator" parent="."]
 clip_children = 1
 layout_mode = 2
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+initial_position = 2
+size = Vector2i(357, 100)
+dialog_text = "Seguro que quieres borrar a este estudiante"
