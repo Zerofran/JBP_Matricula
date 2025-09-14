@@ -1,6 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://b68qvxtggbf1v"]
+[gd_scene load_steps=6 format=3 uid="uid://b68qvxtggbf1v"]
 
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="1_8pnhq"]
+[ext_resource type="Script" uid="uid://bd1sxfr44ufeb" path="res://ToolScript/data_base.gd" id="1_ci2er"]
+
+[sub_resource type="Animation" id="Animation_ci2er"]
+resource_name = "Blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blink:color")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_scd7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blink:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a37xx"]
+_data = {
+&"Blink": SubResource("Animation_ci2er"),
+&"RESET": SubResource("Animation_scd7x")
+}
 
 [node name="DataBase" type="HBoxContainer"]
 anchors_preset = 10
@@ -10,7 +48,7 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-metadata/_edit_group_ = true
+script = ExtResource("1_ci2er")
 
 [node name="LeftMargin" type="VSeparator" parent="."]
 clip_children = 1
@@ -32,11 +70,12 @@ layout_mode = 2
 tooltip_text = "Marquela para incluirla en la fusion de bases de datos"
 text = "F"
 
-[node name="Cargar" type="Button" parent="."]
+[node name="Editar" type="Button" parent="."]
 layout_mode = 2
 tooltip_text = "Se cargara la base de datos para mostrar los estudiantes"
 mouse_default_cursor_shape = 2
-text = "Cargar"
+toggle_mode = true
+text = "Editar"
 
 [node name="Borrar" type="Button" parent="."]
 layout_mode = 2
@@ -44,6 +83,30 @@ tooltip_text = "Se borrara la base de datos"
 mouse_default_cursor_shape = 2
 text = "Borrar"
 
+[node name="Blink" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
 [node name="RightMargin" type="VSeparator" parent="."]
 clip_children = 1
 layout_mode = 2
+
+[node name="Alert" type="AcceptDialog" parent="."]
+initial_position = 2
+ok_button_text = " Si "
+dialog_text = "Seguro que quieres borrar la base de datos"
+
+[node name="AlertSave" type="AcceptDialog" parent="."]
+position = Vector2i(285, 70)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a37xx")
+}
+autoplay = "Blink"
+
+[connection signal="toggled" from="Fusion" to="." method="_on_fusion_toggled"]
+[connection signal="toggled" from="Editar" to="." method="_on_editar_toggled"]
+[connection signal="pressed" from="Borrar" to="." method="_on_borrar_pressed"]
+[connection signal="confirmed" from="Alert" to="." method="_on_alert_confirmed"]

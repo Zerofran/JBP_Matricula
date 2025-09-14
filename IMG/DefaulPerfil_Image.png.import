@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bohjypcddtg1n"
-path="res://.godot/imported/hoja_matricula_completa.png-927af5966741f4b3a8bec7016ab714f8.ctex"
+uid="uid://b42xkwwx5gfg6"
+path="res://.godot/imported/DefaulPerfil_Image.png-c61687866877d74a78ee52b52430d1f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://hoja_matricula_completa.png"
-dest_files=["res://.godot/imported/hoja_matricula_completa.png-927af5966741f4b3a8bec7016ab714f8.ctex"]
+source_file="res://IMG/DefaulPerfil_Image.png"
+dest_files=["res://.godot/imported/DefaulPerfil_Image.png-c61687866877d74a78ee52b52430d1f7.ctex"]
 
 [params]
 
