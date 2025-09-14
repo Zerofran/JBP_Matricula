@@ -6,13 +6,22 @@ var file_path: String = ""
 var headers: Array = []
 var data: Array = []
 const ENCABEZADOS_MATRICULA: Array = [
-	"Codigo", "Estudiante", "LugarNacimiento", "Edad", "Sexo", 
+	"Codigo", "NombreEstudiante", "LugarNacimiento", "Edad", "Sexo", 
 	"Direccion", "GradoAprobado", "GradoPorCursar", "Repitente","CentroProcedencia", 
 	"NombrePadre","CedulaPadre", "CelularPadre", "CorreoPadre", 
 	"NombreMadre","CedulaMadre","CelularMadre", "CorreoMadre",
 	"NombreTutor","CedulaTutor","CelularTutor", "CorreoTutor",
-	"PartidaNacimiento","NotaAnterior","CopiaDiploma", "CopiaCedulaFamiliar-Tutor",
-	"FechaMatricula", "Firma", "NombreGestor"
+	"PartidaNacimiento","NotaAnterior", "hojaTraslado","CopiaDiploma", "CopiaCedulaFamiliar-Tutor",
+	"FechaMatricula", "Firma", "NombreGestor", "fotoEstudiante"
+	]
+const DATOS_POR_DEFECTO: Array = [
+	"New", "Nombre no asignado", "0", "4", "9", 
+	"2", "test", "0", "2","2", 
+	"w","f", "f", "f", 
+	"f","f","f", "f",
+	"f","f","f", "f",
+	"f","f", "f","f", "f",
+	"f", "f", "f", "f"
 	]
 
 func _ready() -> void:
@@ -21,7 +30,7 @@ func _ready() -> void:
 #region CRUD - Funciones Principales
 #-------------------------------------------------------------------------------------------------
 # Carga el archivo CSV desde una ruta y lo lee.
-func load() -> void:
+func load_all() -> void:
 	if not FileAccess.file_exists(file_path):
 		print("No se encontró el archivo en: ", file_path)
 		data = []
@@ -31,13 +40,22 @@ func load() -> void:
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	var content = file.get_as_text().split("\n")
 	file.close()
-	
-	data = []
-	if not content.is_empty():
-		# La primera línea contiene los encabezados.
+
+	# Si el archivo está vacío o solo contiene una línea en blanco
+	if content.is_empty() or (content.size() == 1 and content[0].is_empty()):
+		print("El archivo está vacío.")
+		data = []
+		headers = []
+		return
+
+		# Extrae el encabezado y el resto de los datos del array
 		headers = content.pop_front().split(";")
+
+		data = []
 	
+	# Recorre el resto de las líneas para obtener los datos
 	for row_string in content:
+		# Verifica que la línea no esté vacía antes de procesarla
 		if not row_string.is_empty():
 			var row_array = row_string.split(";")
 			data.append(row_array)
@@ -58,6 +76,25 @@ func delete_record(index: int) -> void:
 	if index >= 0 and index < data.size():
 		data.remove_at(index)
 		_save_to_file()
+
+# Guarda todos los datos en memoria (encabezados y filas) en el archivo CSV.
+func save_all() -> void:
+	if file_path.is_empty():
+		print("Error: No se puede guardar, la ruta del archivo no está definida.")
+		return
+	
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if not file:
+		print("Error al escribir el archivo: %s" % FileAccess.get_open_error())
+		return
+
+	# Escribe los encabezados.
+	file.store_csv_line(headers, ";")
+
+	# Escribe todas las filas.
+	for row in data:
+		file.store_csv_line(row, ";")
+	file.close()
 
 # Busca y devuelve un array de registros que coincidan con un valor.
 func filter_by_value(value_to_find: String) -> Array:

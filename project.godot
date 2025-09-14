@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Matricula_JBP"
 config/tags=PackedStringArray("etapa_inicial", "para_terceros")
+run/main_scene="uid://dk1h828hm5lnf"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

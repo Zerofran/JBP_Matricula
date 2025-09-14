@@ -133,4 +133,11 @@ func dibujar_firma_desde_string(firma_json: String) -> void:
 		nueva_linea.set_points(puntos)
 		_lines.add_child(nueva_linea)
 
+func clear_firma() -> void:
+	for child in _lines.get_children():
+		child.queue_free()
+
+	# También borra los arrays de historial para que 'deshacer' no funcione
+	_historial_lineas.clear()
+	_historial_rehacer.clear()
 #-------------------------------------------------------------------------------------------------

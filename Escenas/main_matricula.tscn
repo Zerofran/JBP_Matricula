@@ -1,18 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=17 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
 [ext_resource type="Script" uid="uid://bnf0ctu6dotkl" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
 [ext_resource type="LabelSettings" uid="uid://cnacrruotnitf" path="res://Fuentes/Georgia_1.tres" id="1_ssong"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="2_ohhdm"]
 [ext_resource type="Script" uid="uid://cpdguyuk3ofjc" path="res://ToolScript/SubRayadoLabel.gd" id="3_bndtn"]
-[ext_resource type="Texture2D" uid="uid://cgtylyd2hggge" path="res://IMG/IMGtestCut2.png" id="5_683mt"]
 [ext_resource type="Script" uid="uid://dxdal5l7htwxm" path="res://ToolScript/SubRayado.gd" id="5_bndtn"]
+[ext_resource type="Texture2D" uid="uid://b42xkwwx5gfg6" path="res://IMG/DefaulPerfil_Image.png" id="6_xrayp"]
 [ext_resource type="PackedScene" uid="uid://t8abh0s3buoq" path="res://Escenas/CampoFirma.tscn" id="7_wwry8"]
 [ext_resource type="Script" uid="uid://cy4cgweu816qk" path="res://ToolScript/setting.gd" id="10_qg4xp"]
 [ext_resource type="StyleBox" uid="uid://bjyhkphds23fp" path="res://Theme/Panel_Styles.tres" id="11_3mwlj"]
+[ext_resource type="Script" uid="uid://b7257vuc6vioe" path="res://ToolScript/data_base_instance.gd" id="11_xrayp"]
 [ext_resource type="PackedScene" uid="uid://b68qvxtggbf1v" path="res://Escenas/data_base.tscn" id="12_5umy1"]
 [ext_resource type="Theme" uid="uid://cgnqq2xrd3q7l" path="res://Theme/CRUD_LineEdit_theme.tres" id="12_xrayp"]
-[ext_resource type="PackedScene" uid="uid://bks6s1rd8y1v8" path="res://Escenas/estudiante.tscn" id="13_3mwlj"]
+[ext_resource type="Script" uid="uid://rkk812l4fv4k" path="res://ToolScript/estudiante_instance.gd" id="14_rtsgn"]
 
 [sub_resource type="Theme" id="Theme_0l54t"]
 RichTextLabel/fonts/normal_font = null
@@ -120,7 +121,7 @@ segunda_linea_activa = true
 [node name="Foto_Estudiante" type="TextureRect" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/Encavezado"]
 custom_minimum_size = Vector2(160, 160)
 layout_mode = 2
-texture = ExtResource("5_683mt")
+texture = ExtResource("6_xrayp")
 expand_mode = 5
 stretch_mode = 5
 
@@ -258,7 +259,7 @@ script = ExtResource("5_bndtn")
 
 [node name="T1" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_estudiante/curso"]
 layout_mode = 2
-text = " Grado Aprobado:"
+text = "Grado Aprobado:"
 label_settings = ExtResource("2_ohhdm")
 
 [node name="g_aprobado" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_estudiante/curso"]
@@ -389,7 +390,7 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Nombre/cedula_padre"]
+[node name="cedula_padre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Nombre/cedula_padre"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -415,7 +416,7 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="numero_celular" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Nombre/celular"]
+[node name="celular_padre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Nombre/celular"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -448,7 +449,7 @@ layout_mode = 2
 text = "CORREO ELECTRÓNICO: "
 label_settings = ExtResource("2_ohhdm")
 
-[node name="codigo_estudiante" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Correo"]
+[node name="correo_padre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_del_padre/Correo"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
@@ -500,7 +501,7 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/cedula_madre"]
+[node name="cedula_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/cedula_madre"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -526,7 +527,7 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="numero_celular" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/celular"]
+[node name="celular_madre" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/celular"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -543,10 +544,10 @@ text = "CELULAR."
 label_settings = ExtResource("2_ohhdm")
 horizontal_alignment = 1
 
-[node name="celular2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre"]
+[node name="proveedorCelular" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre"]
 layout_mode = 2
 
-[node name="fleca3" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/celular2"]
+[node name="fleca3" type="Label" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/datos_de_la_madre/Nombre/proveedorCelular"]
 layout_mode = 2
 text = "TIGO/ CLA"
 label_settings = ExtResource("2_ohhdm")
@@ -611,7 +612,7 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="nombre_tutor" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/cedula_tutor"]
+[node name="cedula_tutor" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/cedula_tutor"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -637,7 +638,7 @@ label_settings = ExtResource("2_ohhdm")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="numero_celular" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/celular"]
+[node name="celular_tutor" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/d_tutor/Nombre/celular"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -934,11 +935,21 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Guardar" type="Button" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V"]
+layout_mode = 2
+alignment = 1
+
+[node name="Guardar" type="Button" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Guardar Informacion"
+
+[node name="Limpiar" type="Button" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Limpiar"
 
 [node name="VSeparator2" type="VSeparator" parent="ScrollContainer/HBoxContainer"]
 clip_children = 1
@@ -1002,11 +1013,11 @@ tooltip_text = "Se creara una nueva Base de datos y se carga en el gestor"
 mouse_default_cursor_shape = 2
 text = "Crear CSV"
 
-[node name="cargar_BD" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor"]
+[node name="importar_BD" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor"]
 layout_mode = 2
 tooltip_text = "Se cargan las bases de datos seleccionadas en el inspector"
 mouse_default_cursor_shape = 2
-text = "Cargar BD"
+text = "Importar CSV"
 
 [node name="TopMargin2" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
 clip_children = 1
@@ -1022,36 +1033,44 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Alert" type="AcceptDialog" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
+initial_position = 2
+dialog_text = "Base de datos vacia"
+
 [node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
 clip_children = 1
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="DataBase" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBaseInstance" type="VBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
+layout_mode = 2
+script = ExtResource("11_xrayp")
+
+[node name="DataBase" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase2" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase2" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase7" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase7" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase8" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase8" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase9" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase9" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase3" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase3" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase4" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase4" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase5" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase5" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
-[node name="DataBase6" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container" instance=ExtResource("12_5umy1")]
+[node name="DataBase6" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
 layout_mode = 2
 
 [node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
@@ -1070,10 +1089,6 @@ text = "Exportar CSV"
 [node name="ExportarTodo" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
 layout_mode = 2
 text = "Exportar Todo"
-
-[node name="ImportarCSV" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
-layout_mode = 2
-text = "Importar CSV"
 
 [node name="FusionarBases" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
 layout_mode = 2
@@ -1105,51 +1120,25 @@ clip_children = 1
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="BD_Disponibles2" type="ScrollContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
+[node name="BD_Estudiantes" type="ScrollContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="BD_Container" type="VBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2"]
+[node name="BD_Container" type="VBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container"]
+[node name="TopMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container"]
 clip_children = 1
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
-[node name="estudiante" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
+[node name="estudiante_instance" type="VBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container"]
 layout_mode = 2
+script = ExtResource("14_rtsgn")
 
-[node name="estudiante7" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante8" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante9" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante10" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante2" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante3" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante4" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante5" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="estudiante6" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container" instance=ExtResource("13_3mwlj")]
-layout_mode = 2
-
-[node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles2/BD_Container"]
+[node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container"]
 clip_children = 1
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
@@ -1169,9 +1158,12 @@ tooltip_text = "Borra los estudiantes Seleccionados"
 text = "Borrar"
 
 [node name="Foto" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 tooltip_text = "Agrega la foto de un estudiante"
 text = "Agregar Foto"
+icon = ExtResource("6_xrayp")
+expand_icon = true
 
 [node name="Añadir" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
 layout_mode = 2
@@ -1185,7 +1177,7 @@ text = "Organizar"
 
 [node name="Guardar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
 layout_mode = 2
-tooltip_text = "Guarda la informacion en la base de datos ca"
+tooltip_text = "Guarda la informacion en la base de datos que estas editando"
 text = "Guardar"
 
 [node name="ButtonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer"]
@@ -1221,25 +1213,25 @@ texture = SubResource("ViewportTexture_rtsgn")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButonCaptura" type="HBoxContainer" parent="Setting/PrincipalContainer/CapturContainer"]
+[node name="saveCaptura" type="HBoxContainer" parent="Setting/PrincipalContainer/CapturContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Guardar" type="Button" parent="Setting/PrincipalContainer/CapturContainer/ButonCaptura"]
+[node name="Guardar" type="Button" parent="Setting/PrincipalContainer/CapturContainer/saveCaptura"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Guardar"
 autowrap_mode = 2
 
-[node name="Guardar2" type="Button" parent="Setting/PrincipalContainer/CapturContainer/ButonCaptura"]
+[node name="Guardar2" type="Button" parent="Setting/PrincipalContainer/CapturContainer/saveCaptura"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Guardar en Documentos"
 autowrap_mode = 2
 
-[node name="Export" type="Button" parent="Setting/PrincipalContainer/CapturContainer/ButonCaptura"]
+[node name="Export" type="Button" parent="Setting/PrincipalContainer/CapturContainer/saveCaptura"]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -1257,7 +1249,7 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2i(1021, 1321)
+size = Vector2i(1021, 1326)
 
 [node name="BG" type="ColorRect" parent="SubViewport"]
 z_index = -1
@@ -1313,7 +1305,7 @@ ok_button_text = "Open"
 cancel_button_text = "Cancelar"
 file_mode = 3
 access = 2
-filters = PackedStringArray("*png")
+filters = PackedStringArray("*.png")
 use_native_dialog = true
 
 [node name="CSVDir_Save-Load" type="Window" parent="."]
@@ -1329,23 +1321,44 @@ access = 2
 filters = PackedStringArray("*.csv")
 use_native_dialog = true
 
+[node name="CSVFusion_Save" type="FileDialog" parent="CSVDir_Save-Load"]
+auto_translate_mode = 1
+initial_position = 2
+cancel_button_text = "Cancelar"
+access = 2
+filters = PackedStringArray("*.csv")
+use_native_dialog = true
+
 [node name="CSVFile_Load" type="FileDialog" parent="CSVDir_Save-Load"]
 auto_translate_mode = 1
-title = "Open a File or Directory"
+title = "Open File(s)"
 initial_position = 2
 ok_button_text = "Open"
 cancel_button_text = "Cancelar"
-file_mode = 3
+file_mode = 1
 access = 2
-filters = PackedStringArray("*png")
+filters = PackedStringArray("*.csv")
 use_native_dialog = true
 
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer/Guardar" to="." method="_on_guardar_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer/Limpiar" to="." method="_on_limpiar_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor/crear_BD" to="Setting" method="_on_crear_bd_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor/importar_BD" to="Setting" method="_on_importar_bd_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Export/ExportarCSV" to="Setting" method="_on_exportar_csv_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Export/ExportarTodo" to="Setting" method="_on_exportar_todo_pressed"]
+[connection signal="renamed" from="Setting/PrincipalContainer/DataBaseContainer/Export/ExportarTodo" to="Setting" method="_on_exportar_todo_renamed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Export/FusionarBases" to="Setting" method="_on_fusionar_bases_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Borrar" to="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container/estudiante_instance" method="_on_borrar_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Foto" to="Setting" method="_on_foto_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Añadir" to="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container/estudiante_instance" method="_on_añadir_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Organizar" to="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container/estudiante_instance" method="_on_organizar_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Guardar" to="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container/estudiante_instance" method="_on_guardar_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/CaptureButton" to="Setting" method="_on_capture_button_pressed"]
-[connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/ButonCaptura/Guardar" to="Setting" method="_on_guardar_pressed"]
+[connection signal="pressed" from="Setting/PrincipalContainer/CapturContainer/saveCaptura/Guardar" to="Setting" method="_on_guardar_pressed"]
 [connection signal="file_selected" from="IMG_Save-Load/imgFile_Save" to="Setting" method="_on_img_file_save_file_selected"]
 [connection signal="file_selected" from="IMG_Save-Load/imgFile_Load" to="Setting" method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="CSVDir_Save-Load/CSVFile_Save" to="Setting" method="_on_csv_file_save_file_selected"]
+[connection signal="files_selected" from="CSVDir_Save-Load/CSVFile_Load" to="Setting" method="_on_csv_file_load_files_selected"]
 
 [editable path="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl"]
+[editable path="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance/DataBase"]

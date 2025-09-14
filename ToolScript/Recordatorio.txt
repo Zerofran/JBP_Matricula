@@ -1,3 +1,1 @@
-"Codigo", "Estudiante", "LugarNacimiento", "Edad",
-"Sexo", "Direccion", "GradoAprobado", "GradoPorCursar", "Repitente",
-"CentroProcedencia", ""
+ahora algo muy importante a tomar en cuenta es el hecho de que tenemos una función de organizar estudiantes, esta puede recurrir a la función que hay en la librería de csv, para organizar las filas de la base de datos, y re instanciar de nuevo los estudiantes para que así aparezcan organizados, como la funcion de organizacion espera que alla encavezados puede que apareca un error si le llega un arrar sin encavezados asi que hay que tener cuidado con eso 

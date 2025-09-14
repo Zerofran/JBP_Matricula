@@ -1,7 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://bks6s1rd8y1v8"]
+[gd_scene load_steps=6 format=3 uid="uid://bks6s1rd8y1v8"]
 
 [ext_resource type="Script" uid="uid://bedcfysyyare" path="res://ToolScript/estudiante.gd" id="1_dxlvv"]
 [ext_resource type="LabelSettings" uid="uid://er8igixddcwp" path="res://Fuentes/Calibri_1.tres" id="1_i7i6a"]
+
+[sub_resource type="Animation" id="Animation_ci2er"]
+resource_name = "Blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blink:color")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_scd7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blink:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a37xx"]
+_data = {
+&"Blink": SubResource("Animation_ci2er"),
+&"RESET": SubResource("Animation_scd7x")
+}
 
 [node name="estudiante" type="HBoxContainer"]
 anchors_preset = 10
@@ -30,6 +67,7 @@ text = "B"
 layout_mode = 2
 tooltip_text = "Se cargara la base de datos para mostrar los estudiantes"
 mouse_default_cursor_shape = 2
+toggle_mode = true
 text = "Editar"
 
 [node name="Borrar" type="Button" parent="."]
@@ -37,6 +75,11 @@ layout_mode = 2
 tooltip_text = "Se borrara la base de datos"
 mouse_default_cursor_shape = 2
 text = "Borrar"
+
+[node name="Blink" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
 
 [node name="RightMargin" type="VSeparator" parent="."]
 clip_children = 1
@@ -46,3 +89,14 @@ layout_mode = 2
 initial_position = 2
 size = Vector2i(357, 100)
 dialog_text = "Seguro que quieres borrar a este estudiante"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a37xx")
+}
+autoplay = "Blink"
+
+[connection signal="toggled" from="BorrarSeleccionado" to="." method="_on_borrar_seleccionado_toggled"]
+[connection signal="toggled" from="Editar" to="." method="_on_editar_toggled"]
+[connection signal="pressed" from="Borrar" to="." method="_on_borrar_pressed"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_accept_dialog_confirmed"]
