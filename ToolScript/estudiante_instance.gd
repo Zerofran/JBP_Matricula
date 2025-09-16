@@ -28,6 +28,7 @@ func _on_añadir_pressed() -> void:
 					DataStudent.append(student_node.data_estudiante)
 			db_node.saveData(DataStudent)
 			db_node.data_BD = DataStudent
+			print(db_node.data_BD[28], " :DEBERIA SER LA FIRMA")
 			break
 
 
@@ -67,6 +68,7 @@ func _on_guardar_pressed() -> void:
 					DataStudent.append(student_node.data_estudiante)
 			db_node.saveData(DataStudent)
 			db_node.data_BD = DataStudent
+			
 			break
 
 func get_activeBD():
@@ -110,4 +112,5 @@ func editStudent(data:Array):
 	else:
 		formulario_de_matricula.clear_form()
 		formulario_de_matricula.set_form(data)
-	#$"../../../../..".visible = false
+		print(data[28], " :DEBERIA SER LA FIRMA")
+	$"../../../../..".visible = false

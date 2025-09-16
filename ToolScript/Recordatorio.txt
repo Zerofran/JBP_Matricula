@@ -14,9 +14,7 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 
 
 Bugs encontrados-------------------------------------------------------------------------
-	if fotoStudiante.texture:
-	# Si tiene una textura, la convierte a Base64
-		data_array.append(CsvCtrl.texture_to_base64(fotoStudiante.texture))
-	else:
-	# Si no tiene una textura, usa la imagen por defecto.
-		data_array.append(CsvCtrl.texture_to_base64(defaul_img))
+al usar el boton añadir uno nuevo el campo de firmas se daña es como si eliminara las firmas de los demas
+pero si edito los que tiene todos pueden representar bien sus firmas.
+algo debe haber que falla en la funcion agregar y guardar por que activar y desactivar la edicion de estudiantes
+sin tocar las funciones de agregar hace que los estudiantes puedan mostrar sus firmas

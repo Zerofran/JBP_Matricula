@@ -135,15 +135,5 @@ func dibujar_firma(firma_data) -> void:
 	if firma_data is Array:
 		dibujar_firma_desde_array(firma_data)
 	elif firma_data is String:
-		var parsed = str_to_var(firma_data)
-		if typeof(parsed) == TYPE_ARRAY:
-			var firma_array = []
-			for trazo in parsed:
-				var packed = PackedVector2Array()
-				for punto in trazo:
-					if punto is Vector2:
-						packed.append(punto)
-					elif punto is Array and punto.size() >= 2:
-						packed.append(Vector2(punto[0], punto[1]))
-				firma_array.append(packed)
-			dibujar_firma_desde_array(firma_array)
+		var trazos: Array = CsvCtrl.string_a_firma(firma_data)
+		dibujar_firma_desde_array(trazos)

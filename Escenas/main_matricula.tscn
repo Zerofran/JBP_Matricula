@@ -868,7 +868,6 @@ size_flags_horizontal = 3
 alignment = 2
 
 [node name="subrayado" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -880,6 +879,7 @@ editable = false
 flat = true
 caret_blink = true
 script = ExtResource("5_bndtn")
+metadata/_edit_group_ = true
 
 [node name="HSeparator11" type="HSeparator" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
 clip_children = 1
@@ -966,6 +966,7 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Setting" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
