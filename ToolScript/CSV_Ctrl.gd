@@ -41,23 +41,32 @@ func load_all() -> void:
 	var content = file.get_as_text().split("\n")
 	file.close()
 
-	# Si el archivo está vacío o solo contiene una línea en blanco
 	if content.is_empty() or (content.size() == 1 and content[0].is_empty()):
 		print("El archivo está vacío.")
 		data = []
 		headers = []
 		return
 
-		# Extrae el encabezado y el resto de los datos del array
-		headers = content.pop_front().split(";")
+	headers = content.pop_front().split(";")
+	data = []
 
-		data = []
-	
-	# Recorre el resto de las líneas para obtener los datos
 	for row_string in content:
-		# Verifica que la línea no esté vacía antes de procesarla
 		if not row_string.is_empty():
 			var row_array = row_string.split(";")
+			# Reconstruir firma si es string
+			if row_array.size() > 28 and row_array[28] is String and row_array[28].begins_with("["):
+				var parsed = str_to_var(row_array[28])
+				if typeof(parsed) == TYPE_ARRAY:
+					var firma_array = []
+					for trazo in parsed:
+						var packed = PackedVector2Array()
+						for punto in trazo:
+							if punto is Vector2:
+								packed.append(punto)
+							elif punto is Array and punto.size() >= 2:
+								packed.append(Vector2(punto[0], punto[1]))
+						firma_array.append(packed)
+					row_array[28] = firma_array
 			data.append(row_array)
 
 # Añade un nuevo registro (fila) a la base de datos en memoria.
@@ -161,8 +170,17 @@ func _save_to_file() -> void:
 	if not file:
 		print("Error al escribir el archivo: %s" % FileAccess.get_open_error())
 		return
+
+	file.store_csv_line(headers, ";")
+
 	for row in data:
-		file.store_csv_line(row, ";")
+		var row_copy = Array(row)
+		if row_copy.size() > 28 and row_copy[28] is Array:
+			var firma_serializable = []
+			for trazo in row_copy[28]:
+				firma_serializable.append(Array(trazo))
+			row_copy[28] = str(firma_serializable)
+		file.store_csv_line(row_copy, ";")
 	file.close()
 
 # Convierte un string con formato de Vector3 a un objeto Vector3.
@@ -170,11 +188,10 @@ func _save_to_file() -> void:
 func string_to_vector3(vector_string: String) -> Vector3:
 	var vector_values: Array = vector_string.split(";")
 	var result_vector: Vector3 = Vector3()
-	
 	if vector_values.size() >= 3:
 		result_vector.x = float(vector_values[0])
 		result_vector.y = float(vector_values[1])
 		result_vector.z = float(vector_values[2])
-	
 	return result_vector
+
 #endregion

@@ -30,18 +30,21 @@ func load_Data_Student(students_data: Array) -> void:
 	for i in range(start_index, students_data.size()):
 		var student = Array(students_data[i]) # aseguramos que sea Array normal
 
-		# Conversión de la firma si es String JSON
+		# Conversión de la firma si es String en formato Godot
 		if student.size() > 28 and student[28] is String and student[28].begins_with("["):
-			var parsed = JSON.parse_string(student[28])
+			var parsed = str_to_var(student[28])
 			if typeof(parsed) == TYPE_ARRAY:
 				var firma_array = []
 				for trazo in parsed:
 					var packed = PackedVector2Array()
 					for punto in trazo:
-						if punto.size() >= 2:
+						if punto is Vector2:
+							packed.append(punto)
+						elif punto is Array and punto.size() >= 2:
 							packed.append(Vector2(punto[0], punto[1]))
-						firma_array.append(packed)
-					student[28] = firma_array
+					firma_array.append(packed)
+				student[28] = firma_array
+
 
 		var new_student = estudiante_scene.instantiate()
 		new_student.data_estudiante = student
