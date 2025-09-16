@@ -95,43 +95,31 @@ func _rehacer():
 		_lines.add_child(nueva)
 		_historial_lineas.append(puntos)
 
-#-------------------------------------------------------------------------------------------------
-#Esta zona es usada para guardar o cargar los puntos del csv ademas de usarse por la funsion de captura
 func get_puntos_firma() -> Array:
 	var puntos: Array = []
 	for linea in _lines.get_children():
 		if linea is Line2D:
+			# El método get_points() devuelve un PackedVector2Array
 			puntos.append(linea.get_points())
 	return puntos
 
-func dibujar_firma_desde_string(firma_json: String) -> void:
-	# 1. Limpia cualquier firma anterior
-	for child in _lines.get_children():
-		child.queue_free()
-	
-	# 2. Analiza el JSON
-	var parser = JSON.new()
-	var error = parser.parse(firma_json)
-	if error != OK:
-		print("Error al analizar el JSON de la firma: ", parser.get_error_message())
-		return
 
-	var puntos_firma: Array = parser.get_data()
-	if not puntos_firma is Array:
-		print("El JSON de la firma no es un Array de puntos.")
-		return
+func dibujar_firma_desde_array(trazos: Array) -> void:
+	clear_firma()
 	
-	# 3. Dibuja las líneas
-	for puntos in puntos_firma:
-		if not puntos is PackedVector2Array:
-			print("Error: Se esperaba un PackedVector2Array.")
+	for trazo in trazos:
+		if not trazo is PackedVector2Array:
 			continue
 		
 		var nueva_linea = Line2D.new()
 		nueva_linea.default_color = Color.BLACK
 		nueva_linea.width = 2
-		nueva_linea.set_points(puntos)
+		nueva_linea.set_points(trazo)
 		_lines.add_child(nueva_linea)
+		
+		# Agrega el trazo al historial para que funcione el 'Ctrl + Z'
+		_historial_lineas.append(trazo)
+
 
 func clear_firma() -> void:
 	for child in _lines.get_children():
@@ -141,3 +129,21 @@ func clear_firma() -> void:
 	_historial_lineas.clear()
 	_historial_rehacer.clear()
 #-------------------------------------------------------------------------------------------------
+#EXPERIMENTAL
+func dibujar_firma(firma_data) -> void:
+	clear_firma()
+	if firma_data is Array:
+		dibujar_firma_desde_array(firma_data)
+	elif firma_data is String:
+		var parsed = str_to_var(firma_data)
+		if typeof(parsed) == TYPE_ARRAY:
+			var firma_array = []
+			for trazo in parsed:
+				var packed = PackedVector2Array()
+				for punto in trazo:
+					if punto is Vector2:
+						packed.append(punto)
+					elif punto is Array and punto.size() >= 2:
+						packed.append(Vector2(punto[0], punto[1]))
+				firma_array.append(packed)
+			dibujar_firma_desde_array(firma_array)

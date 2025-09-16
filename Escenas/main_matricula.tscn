@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=19 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
 [ext_resource type="Script" uid="uid://bnf0ctu6dotkl" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
@@ -11,12 +11,20 @@
 [ext_resource type="Script" uid="uid://cy4cgweu816qk" path="res://ToolScript/setting.gd" id="10_qg4xp"]
 [ext_resource type="StyleBox" uid="uid://bjyhkphds23fp" path="res://Theme/Panel_Styles.tres" id="11_3mwlj"]
 [ext_resource type="Script" uid="uid://b7257vuc6vioe" path="res://ToolScript/data_base_instance.gd" id="11_xrayp"]
-[ext_resource type="PackedScene" uid="uid://b68qvxtggbf1v" path="res://Escenas/data_base.tscn" id="12_5umy1"]
 [ext_resource type="Theme" uid="uid://cgnqq2xrd3q7l" path="res://Theme/CRUD_LineEdit_theme.tres" id="12_xrayp"]
+[ext_resource type="Script" uid="uid://btregd8sx4qc1" path="res://ToolScript/SearchFuncion.gd" id="13_rtsgn"]
 [ext_resource type="Script" uid="uid://rkk812l4fv4k" path="res://ToolScript/estudiante_instance.gd" id="14_rtsgn"]
 
 [sub_resource type="Theme" id="Theme_0l54t"]
 RichTextLabel/fonts/normal_font = null
+
+[sub_resource type="SystemFont" id="SystemFont_rtsgn"]
+font_names = PackedStringArray("Fjalla One")
+
+[sub_resource type="LabelSettings" id="LabelSettings_m6omh"]
+font = SubResource("SystemFont_rtsgn")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rtsgn"]
 viewport_path = NodePath("SubViewport")
@@ -860,6 +868,7 @@ size_flags_horizontal = 3
 alignment = 2
 
 [node name="subrayado" type="LineEdit" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/f_padre_tutor"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -1046,33 +1055,6 @@ layout_mode = 2
 layout_mode = 2
 script = ExtResource("11_xrayp")
 
-[node name="DataBase" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase2" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase7" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase8" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase9" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase3" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase4" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase5" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
-[node name="DataBase6" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance" instance=ExtResource("12_5umy1")]
-layout_mode = 2
-
 [node name="BottonMargin" type="HSeparator" parent="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container"]
 clip_children = 1
 custom_minimum_size = Vector2(0, 5)
@@ -1084,7 +1066,10 @@ alignment = 1
 
 [node name="ExportarCSV" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
 layout_mode = 2
-text = "Exportar CSV"
+tooltip_text = "Exporta una vercion
+Limpia de los CSV marcados 
+para poderlos editar de forma externa"
+text = "Exportar"
 
 [node name="ExportarTodo" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Export"]
 layout_mode = 2
@@ -1101,6 +1086,16 @@ layout_mode = 2
 
 [node name="Search" type="HBoxContainer" parent="Setting/PrincipalContainer/DataBaseContainer"]
 layout_mode = 2
+tooltip_text = "Numero de estudiantes
+en esta base de datos"
+script = ExtResource("13_rtsgn")
+
+[node name="num_estudiante" type="Label" parent="Setting/PrincipalContainer/DataBaseContainer/Search"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_m6omh")
+horizontal_alignment = 1
 
 [node name="barra_busqueda" type="LineEdit" parent="Setting/PrincipalContainer/DataBaseContainer/Search"]
 layout_mode = 2
@@ -1108,8 +1103,10 @@ size_flags_horizontal = 3
 tooltip_text = "Escriba el nombre de la base de datos"
 theme = ExtResource("12_xrayp")
 placeholder_text = "Nombre del Estudiante"
+clear_button_enabled = true
 
 [node name="Buscar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Search"]
+visible = false
 layout_mode = 2
 tooltip_text = "Se creara una nueva Base de datos"
 mouse_default_cursor_shape = 2
@@ -1340,6 +1337,21 @@ access = 2
 filters = PackedStringArray("*.csv")
 use_native_dialog = true
 
+[node name="CSVFree_Save" type="FileDialog" parent="CSVDir_Save-Load"]
+title = "Open a Directory"
+initial_position = 2
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="FusionAlert" type="AcceptDialog" parent="CSVDir_Save-Load"]
+initial_position = 1
+size = Vector2i(219, 106)
+dialog_text = "Solo una base de datos se
+marco para la fusion"
+dialog_autowrap = true
+
 [connection signal="pressed" from="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer/Guardar" to="." method="_on_guardar_pressed"]
 [connection signal="pressed" from="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer/Limpiar" to="." method="_on_limpiar_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/BD_Gestor/crear_BD" to="Setting" method="_on_crear_bd_pressed"]
@@ -1348,6 +1360,7 @@ use_native_dialog = true
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Export/ExportarTodo" to="Setting" method="_on_exportar_todo_pressed"]
 [connection signal="renamed" from="Setting/PrincipalContainer/DataBaseContainer/Export/ExportarTodo" to="Setting" method="_on_exportar_todo_renamed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Export/FusionarBases" to="Setting" method="_on_fusionar_bases_pressed"]
+[connection signal="text_changed" from="Setting/PrincipalContainer/DataBaseContainer/Search/barra_busqueda" to="Setting/PrincipalContainer/DataBaseContainer/Search" method="_on_barra_busqueda_text_changed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Borrar" to="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container/estudiante_instance" method="_on_borrar_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Foto" to="Setting" method="_on_foto_pressed"]
 [connection signal="pressed" from="Setting/PrincipalContainer/DataBaseContainer/Option/Añadir" to="Setting/PrincipalContainer/DataBaseContainer/BD_Estudiantes/BD_Container/estudiante_instance" method="_on_añadir_pressed"]
@@ -1358,7 +1371,8 @@ use_native_dialog = true
 [connection signal="file_selected" from="IMG_Save-Load/imgFile_Save" to="Setting" method="_on_img_file_save_file_selected"]
 [connection signal="file_selected" from="IMG_Save-Load/imgFile_Load" to="Setting" method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="CSVDir_Save-Load/CSVFile_Save" to="Setting" method="_on_csv_file_save_file_selected"]
+[connection signal="file_selected" from="CSVDir_Save-Load/CSVFusion_Save" to="Setting" method="_on_csv_fusion_save_file_selected"]
 [connection signal="files_selected" from="CSVDir_Save-Load/CSVFile_Load" to="Setting" method="_on_csv_file_load_files_selected"]
+[connection signal="dir_selected" from="CSVDir_Save-Load/CSVFree_Save" to="Setting" method="_on_csv_free_save_dir_selected"]
 
 [editable path="ScrollContainer/HBoxContainer/PrincipalContainer_V/FirmaTutor/FirmaContainer/FirmaControl"]
-[editable path="Setting/PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container/DataBaseInstance/DataBase"]

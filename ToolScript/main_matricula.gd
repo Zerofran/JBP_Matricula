@@ -81,16 +81,13 @@ func get_form() -> Array:
 	data_array.append(copiaCedula_FamiliarTutor.text)
 	data_array.append(fechaMatricula.text)
 	
-	# Agrega la firma en la posición correcta (Firma, NombreGestor, fotoEstudiante).
-	var puntos_firma_json: String = JSON.stringify(firma.get_puntos_firma())
-	data_array.append(puntos_firma_json)
+	# Obtiene la cadena de la firma directamente de FirmaScript.gd
+	var firma_data: Array = firma.get_puntos_firma()
+	data_array.append(firma_data)
 	
 	data_array.append(nombreGestor.text)
-
-	# Agrega la foto en la posición correcta.
-	var imagen_datos: Image = fotoStudiante.texture.get_image()
-	data_array.append(Marshalls.variant_to_base64(imagen_datos))
-
+	data_array.append(CsvCtrl.texture_to_base64(fotoStudiante.texture))
+	
 	return data_array
 
 func set_form(data_array: Array) -> void:
@@ -128,17 +125,14 @@ func set_form(data_array: Array) -> void:
 	copiaCedula_FamiliarTutor.text = data_array[26]
 	fechaMatricula.text = data_array[27]
 	
-	# Asigna la firma y la foto en sus posiciones correctas.
-	var firma_json: String = data_array[28]
-	firma.dibujar_firma_desde_string(firma_json)
+	# Carga la firma
+	firma.dibujar_firma(data_array[28])
 	
 	nombreGestor.text = data_array[29]
 	
 	var imagen_base64: String = data_array[30]
-	var imagen_datos: Image = Marshalls.base64_to_variant(imagen_base64)
-	var nueva_textura = ImageTexture.create_from_image(imagen_datos)
-	if nueva_textura:
-		fotoStudiante.texture = nueva_textura
+	var nueva_textura: Texture2D = CsvCtrl.base64_to_texture(imagen_base64)
+	fotoStudiante.texture = nueva_textura
 
 func clear_form() -> void:
 	for node in line_edit_nodes:

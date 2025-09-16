@@ -7,29 +7,29 @@ extends VBoxContainer
 func _ready() -> void:
 	pass
 
-func _process(delta: float) -> void:
-	var option = $"../../../Option"
+func _process(_delta: float) -> void:
 	get_activeBD()
-	if get_children().size() == 0:
-		for child in option.get_children():
-			child.disabled = true
-	else:
-		for child in option.get_children():
-			child.disabled = false
 
 func _on_añadir_pressed() -> void:
 	var index = 0
 	var data_estudiante = CsvCtrl.DATOS_POR_DEFECTO
 	formulario_de_matricula.clear_form()
-	for child in BD_instance.get_children():
-		if child.get_node("Blink").visible:
-			index = child.data_BD.size()
-			child.data_BD.append(data_estudiante)
-			child.saveData(child.data_BD)
+	
 	var estudiante = estudiante_scene.instantiate()
 	estudiante.data_estudiante = data_estudiante
 	estudiante.index_BD = index+1
 	add_child(estudiante)
+
+	var DataStudent: Array = []
+	for db_node in BD_instance.get_children():
+		if db_node.get_node("Blink").visible:
+			DataStudent.append(CsvCtrl.ENCABEZADOS_MATRICULA)
+			for student_node in get_children():
+					DataStudent.append(student_node.data_estudiante)
+			db_node.saveData(DataStudent)
+			db_node.data_BD = DataStudent
+			break
+
 
 func _on_borrar_pressed() -> void:
 	for child in get_children():
@@ -62,36 +62,52 @@ func _on_guardar_pressed() -> void:
 	var DataStudent: Array = []
 	for db_node in BD_instance.get_children():
 		if db_node.get_node("Blink").visible:
-			print(db_node.nameCSV, "   esta es la base de datos ")
+			DataStudent.append(CsvCtrl.ENCABEZADOS_MATRICULA)
 			for student_node in get_children():
-				DataStudent.append(student_node.data_estudiante)
-		db_node.saveData(DataStudent)
+					DataStudent.append(student_node.data_estudiante)
+			db_node.saveData(DataStudent)
+			db_node.data_BD = DataStudent
+			break
 
 func get_activeBD():
-	# 1. Primera pasada: Determina si existe alguna base de datos en modo de edición.
+	var option = $"../../../Option"
 	var any_db_is_active = false
+	
+	# Verifica si hay bases de datos en el contenedor antes de continuar.
+	if BD_instance.get_child_count() == 0:
+		for child in option.get_children():
+			child.disabled = true
+		return # Sale de la función si no hay bases de datos.
+	
+	# 1. Primera pasada: Determina si existe una BD en modo de edición.
 	for db_node in BD_instance.get_children():
-		# Se verifica si el nodo `Blink` es visible.
 		if db_node.get_node("Blink").visible:
 			any_db_is_active = true
-			break # Si se encuentra una, no es necesario seguir buscando.
-
-	# 2. Segunda pasada: Desactiva o activa los botones de forma global.
+			break
+	
+	# 2. Segunda pasada: Activa o desactiva los botones de forma global.
 	for db_node in BD_instance.get_children():
 		var edit_button = db_node.get_node("Editar")
 		var blink_node = db_node.get_node("Blink")
 
-		# Si hay una base de datos activa, desactiva el botón de 'Editar' en todos
-		# los demás nodos. Si no, activa el botón de 'Editar' en todos.
 		if any_db_is_active:
-			if not blink_node.visible:
-				edit_button.disabled = true
+			if blink_node.visible:
+				edit_button.disabled = false 
+			else:
+				edit_button.disabled = true 
+			
+			for child in option.get_children():
+				child.disabled = false
+		
 		else:
 			edit_button.disabled = false
+			for child in option.get_children():
+				child.disabled = true
 
 func editStudent(data:Array):
 	if data[0] == "New":
 		formulario_de_matricula.clear_form()
 	else:
+		formulario_de_matricula.clear_form()
 		formulario_de_matricula.set_form(data)
-	$"../../../../..".visible = false
+	#$"../../../../..".visible = false

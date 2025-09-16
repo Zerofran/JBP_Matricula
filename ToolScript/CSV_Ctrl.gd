@@ -79,22 +79,7 @@ func delete_record(index: int) -> void:
 
 # Guarda todos los datos en memoria (encabezados y filas) en el archivo CSV.
 func save_all() -> void:
-	if file_path.is_empty():
-		print("Error: No se puede guardar, la ruta del archivo no está definida.")
-		return
-	
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
-	if not file:
-		print("Error al escribir el archivo: %s" % FileAccess.get_open_error())
-		return
-
-	# Escribe los encabezados.
-	file.store_csv_line(headers, ";")
-
-	# Escribe todas las filas.
-	for row in data:
-		file.store_csv_line(row, ";")
-	file.close()
+	_save_to_file()
 
 # Busca y devuelve un array de registros que coincidan con un valor.
 func filter_by_value(value_to_find: String) -> Array:
@@ -176,9 +161,6 @@ func _save_to_file() -> void:
 	if not file:
 		print("Error al escribir el archivo: %s" % FileAccess.get_open_error())
 		return
-
-	# Corrección: Se especifica el punto y coma (";") como delimitador.
-	file.store_csv_line(headers, ";")
 	for row in data:
 		file.store_csv_line(row, ";")
 	file.close()

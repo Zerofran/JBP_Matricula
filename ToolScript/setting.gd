@@ -11,6 +11,9 @@ var data_base : PackedScene = load("res://Escenas/data_base.tscn") #sera la esce
 @onready var saveCaptura = $PrincipalContainer/CapturContainer/saveCaptura
 @onready var buttonCapture = $PrincipalContainer/CapturContainer/CaptureButton
 
+var _exportar_todo_modo := false
+
+
 func _ready() -> void:
 	visible = true
 	for i in saveCaptura.get_children():
@@ -128,44 +131,23 @@ func guardar_hoja_completa() -> Image:
 	return viewport_texture.get_image()
 
 func _on_fusionar_bases_pressed() -> void:
-	var escena_resultado : PackedScene = load("res://Escenas/data_base.tscn")
-	var instance_container : VBoxContainer = DataBaseInstance
-	var array_fusion: Array = []
-	var encabezado_fusion: Array = []
-	var has_data_to_fuse = false
-	var first_path = ""
-	var first_name = ""
-
-	for child in instance_container.get_children():
-		if child is HBoxContainer and child.has_node("Fusionar"):
-			var checkbox = child.get_node("Fusionar")
-			if checkbox.button_pressed:
-				var tabla: Array = child.get_data()
-
-				if tabla.size() > 1:
-					has_data_to_fuse = true
-
-					if encabezado_fusion.is_empty():
-						encabezado_fusion = tabla[0]
-						first_path = child.path
-						first_name = child.nameCSV
-
-					for i in range(1, tabla.size()):
-						array_fusion.append(tabla[i])
-
-	if has_data_to_fuse:
-		array_fusion.insert(0, encabezado_fusion)
-
-		var instancia_fusionada : HBoxContainer = escena_resultado.instantiate()
-		instancia_fusionada.set_data(array_fusion)
-		instancia_fusionada.nameCSV = first_name + "_fusion"
-		instancia_fusionada.path = first_path.get_base_dir() + "/fusionado_" + str(Time.get_ticks_msec()) + ".csv"
-		
-		instance_container.add_child(instancia_fusionada)
+	var databases_to_fuse_count = 0
+	
+	# Itera sobre los hijos de DataBaseInstance para contar los que están marcados para fusionar.
+	if DataBaseInstance:
+		for child in DataBaseInstance.get_children():
+			# Verifica si el nodo es un HBoxContainer y tiene el nodo de fusión (CheckBox).
+			if child is HBoxContainer and child.has_node("Fusion"):
+				var fusion_checkbox = child.get_node("Fusion")
+				if fusion_checkbox.button_pressed:
+					databases_to_fuse_count += 1
+	
+	# Muestra el diálogo de guardado solo si se seleccionaron más de una base de datos.
+	if databases_to_fuse_count > 1:
+		$"../CSVDir_Save-Load/CSVFusion_Save".visible = true
 	else:
-		print("No se encontraron bases de datos seleccionadas o con datos para fusionar.")
+		$"../CSVDir_Save-Load/FusionAlert".visible = true
 
-#<--------Aqui se maneja la creacion de Bases de Datos-------->
 func _on_crear_bd_pressed() -> void:
 	# Muestra el FileDialog para que el usuario elija la ruta y el nombre del nuevo archivo CSV.
 	$"../CSVDir_Save-Load/CSVFile_Save".visible = true
@@ -173,8 +155,8 @@ func _on_crear_bd_pressed() -> void:
 func _on_csv_file_save_file_selected(path: String) -> void:
 	# 1. Configura la librería CsvCtrl con la ruta y los encabezados.
 	CsvCtrl.setup(path, CsvCtrl.ENCABEZADOS_MATRICULA)
+	CsvCtrl.data = []
 	CsvCtrl._save_to_file()
-	print(CsvCtrl.data, " Qui se vera si esta basio o no")
 	
 	# 3. Instancia el nodo de la base de datos (data_base.tscn).
 	var new_db_node = data_base.instantiate()
@@ -191,7 +173,6 @@ func _on_csv_file_save_file_selected(path: String) -> void:
 
 func _on_csv_file_load_files_selected(paths: PackedStringArray) -> void:
 	var instance_container = DataBaseInstance
-	print(paths)
 	for path in paths:
 		var file_name = path.get_file().get_basename()
 		
@@ -234,21 +215,103 @@ func _export_database(db_node: HBoxContainer) -> void:
 	print("Base de datos exportada con éxito a: ", path)
 
 
-# Esta función maneja la lógica del botón "Exportar CSV" para las bases de datos seleccionadas.
-func _on_exportar_csv_pressed() -> void:
-	var instance_container = $PrincipalContainer/DataBaseContainer/BD_Disponibles/BD_Container
-	for child in instance_container.get_children():
-		if child is HBoxContainer and child.has_node("Exportar"):
-			if child.get_node("Exportar").button_pressed:
-				_export_database(child)
 
-
-# Esta función maneja la lógica del botón "Exportar Todo".
-func _on_exportar_todo_pressed() -> void:
-	var instance_container = DataBaseInstance
-	for child in instance_container.get_children():
-		if child is HBoxContainer:
-			_export_database(child)
 
 func _on_importar_bd_pressed() -> void:
 	$"../CSVDir_Save-Load/CSVFile_Load".visible = true
+
+
+func _on_csv_fusion_save_file_selected(path: String) -> void:
+	# Define el contenedor de las bases de datos.
+	var instance_container: VBoxContainer = DataBaseInstance
+	var array_fusion: Array = []
+	
+	# Recorre los nodos hijos para encontrar las bases de datos seleccionadas.
+	for child in instance_container.get_children():
+		# Verifica si el nodo es una base de datos y si el botón de fusión está activado.
+		# Asumo que el botón 'Fusion' es un CheckBox.
+		if child is HBoxContainer and child.has_node("Fusion"):
+			var checkbox = child.get_node("Fusion")
+			if checkbox.button_pressed:
+				var tabla: Array = child.data_BD
+				
+				# Asegúrate de que la base de datos no esté vacía.
+				if tabla.size() > 1:
+					# Añade los datos (filas) de la base de datos a nuestro array de fusión.
+					# Se ignora el primer elemento porque son los encabezados.
+					for i in range(1, tabla.size()):
+						array_fusion.append(tabla[i])
+	
+	# Si se encontró información para fusionar, se procede con la creación de la nueva BD.
+	if not array_fusion.is_empty():
+		var escena_resultado: PackedScene = load("res://Escenas/data_base.tscn")
+		
+		# Añade los encabezados al inicio del array fusionado.
+		array_fusion.insert(0, CsvCtrl.ENCABEZADOS_MATRICULA)
+		
+		var instancia_fusionada: HBoxContainer = escena_resultado.instantiate()
+		
+		# Asigna los datos y propiedades a la nueva instancia.
+		instancia_fusionada.data_BD = array_fusion
+		instancia_fusionada.nameCSV = path.get_file().get_basename()
+		instancia_fusionada.path = path
+		
+		# Añade la nueva instancia a la interfaz.
+		instance_container.add_child(instancia_fusionada)
+		
+		# Puedes guardar el archivo fusionado aquí si es necesario.
+		CsvCtrl.setup(path, CsvCtrl.ENCABEZADOS_MATRICULA)
+		CsvCtrl.data = array_fusion
+		CsvCtrl.save_all()
+		
+		print("Bases de datos seleccionadas fusionadas con éxito.")
+	else:
+		print("No se encontraron bases de datos seleccionadas o con datos para fusionar.")
+
+
+func _on_csv_free_save_dir_selected(dir: String) -> void:
+	print("Directorio seleccionado: ", dir)
+	
+	# Asegúrate de que el directorio de destino exista. Si no, lo crea de forma recursiva.
+	var dir_access = DirAccess.open("user://")
+	if not dir_access.dir_exists_absolute(dir):
+		var error = dir_access.make_dir_recursive(dir)
+		if error != OK:
+			print("Error al crear el directorio: ", error)
+			return
+	
+	for db_instance in DataBaseInstance.get_children():
+		var exportar_db := false
+		
+		# Si el modo "Exportar Todo" está activo, siempre exporta.
+		if _exportar_todo_modo:
+			exportar_db = true
+		else:
+			# Si no, verifica si el botón "Exportar" está presionado.
+			var exportar_node = db_instance.get_node("Exportar").button_pressed
+			if exportar_node:
+				exportar_db = true
+		
+		if exportar_db:
+			var path = dir.path_join(db_instance.nameCSV + ".csv")
+			var data = db_instance.data_BD
+			
+			# Itera sobre cada fila para modificar las columnas de firma y foto
+			for row in data:
+				# El código original era data[28], lo que causaba el error.
+				# Ahora, se accede a la celda correcta dentro de cada fila.
+				row[28] = "Firma"
+				row[30] = "imagen"
+				
+			CsvCtrl.file_path = path
+			CsvCtrl.headers = CsvCtrl.ENCABEZADOS_MATRICULA
+			CsvCtrl.data = data
+			CsvCtrl._save_to_file()
+
+func _on_exportar_csv_pressed() -> void:
+	_exportar_todo_modo = false
+	$"../CSVDir_Save-Load/CSVFree_Save".visible = true
+
+func _on_exportar_todo_pressed() -> void:
+	_exportar_todo_modo = true
+	$"../CSVDir_Save-Load/CSVFree_Save".visible = true

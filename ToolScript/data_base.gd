@@ -9,7 +9,6 @@ extends HBoxContainer
 
 func _ready() -> void:
 	NameDB.text = str(nameCSV)
-	print(data_BD)
 
 func get_data() -> Array:
 	return data_BD
@@ -21,10 +20,11 @@ func set_data(new_data: Array):
 func saveData(data_to_save: Array) -> void:
 	if $Blink.visible:
 		CsvCtrl.setup(path, CsvCtrl.ENCABEZADOS_MATRICULA)
-		CsvCtrl.data = data_to_save
-		CsvCtrl.save_all()
+		CsvCtrl.data = data_to_save # ¡Aquí pasamos el array completo, con los encabezados!
+		CsvCtrl._save_to_file()
 		CsvCtrl.data = []
 		print("Base de datos '", nameCSV, "' guardada automáticamente.")
+		data_BD = data_to_save
 	
 func delet_grup():
 	queue_free()
@@ -52,6 +52,7 @@ func _on_editar_toggled(toggled_on: bool) -> void:
 					sibling_button.disabled = toggled_on
 
 	if $Blink.visible:
+		parent_node.clear_Data_student()
 		parent_node.load_Data_Student(data_BD)
 	else:
 		parent_node.clear_Data_student()

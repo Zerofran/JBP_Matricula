@@ -61,6 +61,11 @@ label_settings = ExtResource("1_i7i6a")
 
 [node name="BorrarSeleccionado" type="CheckBox" parent="."]
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 text = "B"
 
 [node name="Editar" type="Button" parent="."]

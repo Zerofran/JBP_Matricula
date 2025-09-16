@@ -1,1 +1,22 @@
 ahora algo muy importante a tomar en cuenta es el hecho de que tenemos una función de organizar estudiantes, esta puede recurrir a la función que hay en la librería de csv, para organizar las filas de la base de datos, y re instanciar de nuevo los estudiantes para que así aparezcan organizados, como la funcion de organizacion espera que alla encavezados puede que apareca un error si le llega un arrar sin encavezados asi que hay que tener cuidado con eso 
+
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	var lista = ObjectHUD.get_children()
+	for i in lista.size():
+		if (str(lista[i].get_name()).to_lower()).similarity(new_text.to_lower()) > 0.3 :
+			lista[i].visible = true
+		else:
+			lista[i].visible = false
+	if new_text == "":
+		for i in lista.size():
+			lista[i].visible = true
+
+
+Bugs encontrados-------------------------------------------------------------------------
+	if fotoStudiante.texture:
+	# Si tiene una textura, la convierte a Base64
+		data_array.append(CsvCtrl.texture_to_base64(fotoStudiante.texture))
+	else:
+	# Si no tiene una textura, usa la imagen por defecto.
+		data_array.append(CsvCtrl.texture_to_base64(defaul_img))

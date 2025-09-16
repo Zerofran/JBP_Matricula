@@ -7,34 +7,48 @@ var student_instances: Array = []
 # Variable para guardar la referencia a la base de datos activa
 var active_database: Array = []
 
-func _ready() -> void:
-	# El código de limpieza en _ready() es un buen hábito.
-	for child in get_children():
-		child.queue_free()
+var children
 
-# Carga y muestra los datos de los estudiantes.
-func load_Data_Student(students_data: Array) -> void:
-	print(students_data)
-	# Limpia las instancias existentes para evitar duplicados.
-	for child in InstanceStudent.get_children():
-		child.queue_free()
+func _ready() -> void:
+	pass
+func _process(_delta: float) -> void:
+	children = get_children().size()
+	if children == 0:
+		for i in $"../../../Export".get_children():
+			i.disabled = true
+	else:
+		for i in $"../../../Export".get_children():
+			i.disabled = false
 	
-	# Itera sobre los datos usando un índice para saber la posición de cada estudiante.
-	for i in range(1, students_data.size()):
-		var student = students_data[i]
-		
-		# Ignora el primer elemento si es un encabezado.
-		if i == 0:
-			continue
-			
+
+func load_Data_Student(students_data: Array) -> void:
+	var start_index = 0
+	if students_data.size() > 0 and Array(students_data[0]) == CsvCtrl.ENCABEZADOS_MATRICULA:
+		start_index = 1
+		print("Se ha detectado una fila de encabezados, se omite.")
+
+	for i in range(start_index, students_data.size()):
+		var student = Array(students_data[i]) # aseguramos que sea Array normal
+
+		# Conversión de la firma si es String JSON
+		if student.size() > 28 and student[28] is String and student[28].begins_with("["):
+			var parsed = JSON.parse_string(student[28])
+			if typeof(parsed) == TYPE_ARRAY:
+				var firma_array = []
+				for trazo in parsed:
+					var packed = PackedVector2Array()
+					for punto in trazo:
+						if punto.size() >= 2:
+							packed.append(Vector2(punto[0], punto[1]))
+						firma_array.append(packed)
+					student[28] = firma_array
+
 		var new_student = estudiante_scene.instantiate()
-		
-		# Llena las variables export de la escena instanciada.
 		new_student.data_estudiante = student
-		new_student.index_BD = i # Aquí se asigna el índice correcto del array.
-		
+		new_student.index_BD = i 
 		InstanceStudent.add_child(new_student)
-		print(student, " verifiquemos")
+		print("Instancia exitosa")
+
 
 func clear_Data_student():
 	for child in InstanceStudent.get_children():

@@ -5,6 +5,7 @@ extends HBoxContainer
 @export var index_BD: int = -1 # Guarda el índice del estudiante en la base de datos
 @export var edit_active: bool = false # Estado del modo de edición
 @export var delet: bool = false
+@export var nombre_nodo: String
 
 # Referencias a los nodos de la interfaz
 @onready var nombre_estudiante : Label = $Nombre_Estudiante
@@ -12,20 +13,20 @@ extends HBoxContainer
 func _ready() -> void:
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	nombre_estudiante.text = str(data_estudiante[1])
+	nombre_nodo = str(data_estudiante[1])
 
 ## Obtiene los datos del estudiante
 func get_data() -> Array:
 	return data_estudiante
+	
 
-## Asigna los datos y el índice al estudiante
+# En el script del nodo estudiante (estudiante.gd)
 func set_data(new_data: Array):
+	data_estudiante = new_data
 	if new_data.size() > 1:
-		data_estudiante = new_data
-		nombre_estudiante.text = str(data_estudiante[1])
-	else:
-		print("Error: Los datos del estudiante están incompletos.")
+		nombre_estudiante.text = new_data[1]
 
 ## Borra el nodo al presionar el botón
 func _on_borrar_pressed() -> void:
