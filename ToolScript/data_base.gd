@@ -9,6 +9,7 @@ extends HBoxContainer
 
 func _ready() -> void:
 	NameDB.text = str(nameCSV)
+	data_BD.remove_at(0)
 
 func get_data() -> Array:
 	return data_BD

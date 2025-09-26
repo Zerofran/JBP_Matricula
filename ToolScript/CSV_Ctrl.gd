@@ -14,7 +14,7 @@ const ENCABEZADOS_MATRICULA: Array = [
 	"PartidaNacimiento","NotaAnterior", "hojaTraslado","CopiaDiploma", "CopiaCedulaFamiliar-Tutor",
 	"FechaMatricula", "Firma", "NombreGestor", "fotoEstudiante"
 	]
-const DATOS_POR_DEFECTO: Array = [
+var DATOS_POR_DEFECTO: Array = [
 	"New", "Nombre no asignado", "0", "4", "9", 
 	"2", "test", "0", "2","2", 
 	"w","f", "f", "f", 
@@ -47,7 +47,7 @@ func load_all() -> void:
 		headers = []
 		return
 
-	headers = content.pop_front().split(";")
+	#headers = content.pop_front().split(";")
 	data = []
 
 	for row_string in content:
@@ -66,7 +66,7 @@ func load_all() -> void:
 							elif punto is Array and punto.size() >= 2:
 								packed.append(Vector2(punto[0], punto[1]))
 						firma_array.append(packed)
-					row_array[28] = firma_array
+					#row_array[28] = firma_array  la firma no se añade
 			data.append(row_array)
 
 # Añade un nuevo registro (fila) a la base de datos en memoria.

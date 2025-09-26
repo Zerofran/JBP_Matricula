@@ -14,7 +14,11 @@ config/name="Matricula_JBP"
 config/tags=PackedStringArray("etapa_inicial", "para_terceros")
 run/main_scene="uid://dk1h828hm5lnf"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=30
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/image="uid://btsugm7r7tfyu"
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=1000
 
 [autoload]
 
@@ -24,6 +28,7 @@ CsvCtrl="*res://ToolScript/CSV_Ctrl.gd"
 
 window/size/viewport_width=1020
 window/size/viewport_height=700
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

@@ -134,6 +134,3 @@ func dibujar_firma(firma_data) -> void:
 	clear_firma()
 	if firma_data is Array:
 		dibujar_firma_desde_array(firma_data)
-	elif firma_data is String:
-		var trazos: Array = CsvCtrl.string_a_firma(firma_data)
-		dibujar_firma_desde_array(trazos)

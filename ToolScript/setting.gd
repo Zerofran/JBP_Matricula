@@ -300,11 +300,14 @@ func _on_csv_free_save_dir_selected(dir: String) -> void:
 			for row in data:
 				# El código original era data[28], lo que causaba el error.
 				# Ahora, se accede a la celda correcta dentro de cada fila.
-				row[28] = "Firma"
-				row[30] = "imagen"
-				
-			CsvCtrl.file_path = path
-			CsvCtrl.headers = CsvCtrl.ENCABEZADOS_MATRICULA
+				if typeof(row[28]) == 4:
+					row[28] = "FirmaTutor"
+				else:
+					row[28] = str(row[28])
+					row[28] = "FirmaRTutor"
+					
+				row[30] = "imagenEstudiante"
+			CsvCtrl.setup(path, CsvCtrl.ENCABEZADOS_MATRICULA)
 			CsvCtrl.data = data
 			CsvCtrl._save_to_file()
 

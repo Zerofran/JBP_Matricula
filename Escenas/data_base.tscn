@@ -63,11 +63,13 @@ label_settings = ExtResource("1_8pnhq")
 [node name="Exportar" type="CheckBox" parent="."]
 layout_mode = 2
 tooltip_text = "Marquela para incluirla en la fusion de bases de datos"
+mouse_default_cursor_shape = 2
 text = "E"
 
 [node name="Fusion" type="CheckBox" parent="."]
 layout_mode = 2
 tooltip_text = "Marquela para incluirla en la fusion de bases de datos"
+mouse_default_cursor_shape = 2
 text = "F"
 
 [node name="Editar" type="Button" parent="."]

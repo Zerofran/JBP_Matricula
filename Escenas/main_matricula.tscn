@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dk1h828hm5lnf"]
+[gd_scene load_steps=24 format=3 uid="uid://dk1h828hm5lnf"]
 
 [ext_resource type="Texture2D" uid="uid://b0on7ck2nx7ww" path="res://IMG/JBP_logo.jpg" id="1_fcyrk"]
 [ext_resource type="Script" uid="uid://bnf0ctu6dotkl" path="res://ToolScript/main_matricula.gd" id="1_rtsgn"]
@@ -17,6 +17,26 @@
 
 [sub_resource type="Theme" id="Theme_0l54t"]
 RichTextLabel/fonts/normal_font = null
+
+[sub_resource type="InputEventKey" id="InputEventKey_xrayp"]
+device = -1
+ctrl_pressed = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_rtsgn"]
+events = [SubResource("InputEventKey_xrayp")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_m6omh"]
+device = -1
+keycode = 4194312
+
+[sub_resource type="InputEventKey" id="InputEventKey_gdgoc"]
+device = -1
+ctrl_pressed = true
+keycode = 4194308
+
+[sub_resource type="Shortcut" id="Shortcut_wxc51"]
+events = [SubResource("InputEventKey_m6omh"), SubResource("InputEventKey_gdgoc")]
 
 [sub_resource type="SystemFont" id="SystemFont_rtsgn"]
 font_names = PackedStringArray("Fjalla One")
@@ -952,12 +972,14 @@ alignment = 1
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_rtsgn")
 text = "Guardar Informacion"
 
 [node name="Limpiar" type="Button" parent="ScrollContainer/HBoxContainer/PrincipalContainer_V/HBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_wxc51")
 text = "Limpiar"
 
 [node name="VSeparator2" type="VSeparator" parent="ScrollContainer/HBoxContainer"]
@@ -966,7 +988,6 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="Setting" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1009,7 +1030,7 @@ layout_mode = 2
 [node name="Titulo" type="Label" parent="Setting/PrincipalContainer/DataBaseContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "CRUD Base de datos"
+text = "Editar bases de datos"
 label_settings = ExtResource("1_ssong")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -1169,6 +1190,7 @@ tooltip_text = "Añade un nuevo estudiante a la base de datos"
 text = "Añadir nuevo"
 
 [node name="Organizar" type="Button" parent="Setting/PrincipalContainer/DataBaseContainer/Option"]
+visible = false
 layout_mode = 2
 tooltip_text = "Organiza los estudiantes alfabeticamente usando su primer nombre"
 text = "Organizar"
@@ -1200,6 +1222,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+tooltip_text = "crea una imagen de la hoja de matricula en edicion"
 mouse_default_cursor_shape = 2
 text = "Capturar Hoja de matriculan "
 autowrap_mode = 2
@@ -1223,6 +1246,7 @@ text = "Guardar"
 autowrap_mode = 2
 
 [node name="Guardar2" type="Button" parent="Setting/PrincipalContainer/CapturContainer/saveCaptura"]
+visible = false
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -1230,6 +1254,7 @@ text = "Guardar en Documentos"
 autowrap_mode = 2
 
 [node name="Export" type="Button" parent="Setting/PrincipalContainer/CapturContainer/saveCaptura"]
+visible = false
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 mouse_default_cursor_shape = 2
