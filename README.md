@@ -25,3 +25,12 @@ El programa se inicia con la interfaz principal dividida en dos secciones:
 La funcionalidad de captura de pantalla es manejada por un `SubViewport` que se redimensiona al tamaño completo del formulario, asegurando que toda la hoja de matrícula sea capturada correctamente en un solo archivo PNG.
 
 ## 📄 Licencia
+
+Este proyecto está licenciado bajo la **Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0)**.
+
+**Restricciones Clave:**
+* **No se permite la modificación (Sin Derivadas):** Usted no puede remezclar, transformar o crear a partir de este material.
+* **No se permite el uso comercial (No Comercial):** El proyecto no puede ser utilizado con fines de lucro.
+* **No se permite la redistribución de código modificado.**
+
+El código fuente está disponible para su revisión y estudio, con el objetivo de comprender la implementación técnica del sistema.
